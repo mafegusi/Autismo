@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Números</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: calibri "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-align: center;
+            background-color: #f0f4f7; /* Fondo gris claro */
+            border-radius: 20px;
+        }
+    
+        *,  
+            ::after,
+            ::before  { margin:0;
+            padding:0;            
+            box-sizing: border-box;
+        }
+    
+        :root {
+            --primary-color: #3b4b6b; /* Azul oscuro para el encabezado */
+            --secondary-color: #4a90e2; /* Azul para el menú */
+            --accent-color: #8cb3d9; /* Azul claro para los detalles */
+            --text-color: #000000; /* Texto negro */
+            --background-color: #f0f4f7; /* Fondo gris claro */
+            --white: #ffffff; /* Blanco puro */
+            --gradient-start: #3b4b6b; /* Degradado de azul oscuro */
+            --gradient-end: #8cb3d9; /* a azul claro */
+        }
+    
+        /* Estilo del header */
+        header {
+            background-image: url(Imagenes/neuro-numero.jpg);
+            height: 500px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--white);
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: right;
+        }
+        section {
+            min-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        /* Estilos del título en el header */
+        header h1 {
+            font-size: 60px;
+            color: black;
+            text-align: cente
+        }
+
+        /* Estilos para el subtítulo en el header */
+        header p {
+            font-size: 70px;
+            margin: 1em 0;
+            text-align: center;
+            color: black;
+        }
+    
+    
+        /* Estilos para el menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: 4px solid var(--accent-color);
+        }
+    
+        /* Estilos de los enlaces en el menú de navegación */
+        nav a {
+            color: var(--white);
+            padding: 4px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-right: 1px solid var(--accent-color);
+            flex-grow: 1;
+            font-weight: bold;
+            font-size: 20;
+            border-radius: 30px;
+        }
+    
+        /* Quitar borde derecho del último enlace en el menú */
+        nav a:last-child {
+            border-right: none;
+        }
+    
+        /* Estilos de hover en los enlaces del menú */
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+    
+        /* Divider en el menú */
+        nav .divider {
+            width: 1px;
+            background-color: var(--accent-color);
+            margin: 0 10px;
+            height: auto;
+        }
+    
+        /* Menú desplegable */
+        .dropdown {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+    
+        /* Contenido del menú desplegable */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        /* Estilos de los enlaces en el menú desplegable */
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+    
+        /* Hover en los enlaces del menú desplegable */
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+    
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    
+        /* Menú secundario (submenú) */
+        .dropdown-subcontent {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 100%;
+            top: 0;
+            transform: translateX(0%);
+        }
+    
+        /* Mostrar submenú al hacer hover en el elemento padre */
+        .dropdown-content .submenu:hover .dropdown-subcontent {
+            display: block;
+        }
+    
+        /* Sombra en los elementos del menú */
+        nav a, .dropdown-content a, .dropdown-subcontent a {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Estilos para los botones en el header */
+        .header-buttons {
+            background-color: white;
+            color: white;
+            padding: 4px 8px; /* Botones más pequeños */
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: 2px solid white;
+            margin-right: 15px; /* Espaciado entre botones */
+            display: inline-block;
+        }
+       
+        /* Hover en los botones del header */
+        .header-button:hover {
+            background-color: #09b5d8;
+            color: black;
+        }
+        .header-content {
+        display: flex;
+        align-items: left;
+    }
+
+    .header-content h1 {
+        margin-right: 20px; /* Espacio entre el título y los botones */
+    }
+    </style>
+    
+<header>
+    <div class="header-container">
+        <div class="header-text">
+        <h1>Neuro-Números</h1></a>
+            <p>Descubriendo el poder de las matemáticas</p>
+        </div>
+    </div>
+</header>
+
+        
+        <!-- Botones de acciones -->
+        <div class="header-buttons">
+            <a href="bienvenida.html" class="header-button">Bienvenida</a>
+            <a href="ayuda.html" class="header-button">Ayuda</a>
+            <a href="historias-vida.html" class="header-button">Testimonios</a>
+            <a href="novedades.html" class="header-button">Novedades</a>
+            <a href="blog.html" class="header-button">Blog</a>
+            <a href="mapa-de-sitio.html" class="header-button">Mapa del sitio</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="explorando.html" class="dropbtn">Explorando</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Explorando.html" class="dropbtn-sub">Explorando el autismo</a>
+                    <div class="dropdown-subcontent">
+                        <a href="definicion-diagnostico.html">Definición y Diagnóstico</a>
+                        <a href="signos-sintomas.html">Signos y Síntomas</a>
+                        <a href="mitos-realidades.html">Mitos y Realidades</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="diversidad-neurocognitiva.html" class="dropbtn-sub">Diversidad Neurocognitiva</a>
+                    <div class="dropdown-subcontent">
+                        <a href="concepto-neurodiversidad.html">Concepto de Neurodiversidad</a>
+                        <a href="importancia-inclusion.html">Importancia de la Inclusión</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="vidas-y-vivencias.html" class="dropbtn-sub">Vidas y Vivencias</a>
+                    <div class="dropdown-subcontent">
+                        <a href="historias-vida.html">Historias de Vida</a>
+                        <a href="entrevistas-expertos.html">Entrevista con Expertos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Recursos-educativos.html" class="dropbtn">Recursos educativos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Guias-estudios.html" class="dropbtn-sub">Guías de estudios</a>
+                    <div class="dropdown-subcontent">
+                        <a href="matematicas basicas.html">Matemáticas básicas</a>
+                        <a href="Algebra-y-geometria.html">Álgebra y Geometría</a>
+                        <a href="problemas.html">Problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Consejos.html" class="dropbtn-sub">Consejos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Para-examenes.html">Para exámenes</a>
+                        <a href="Para-reducir-el-estres.html">Para reducir el estrés</a>
+                        <a href="Gestion-tiempo.html">Gestión del tiempo</a>
+                        <a href="Para-educadores.html">Para Educadores</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Recursos-adaptados.html" class="dropbtn-sub">Recursos adaptados</a>
+                    <div class="dropdown-subcontent">
+                        <a href="material-visual.html">Materiales visuales</a>
+                        <a href="material-auditivo.html">Materiales Auditivos</a>
+                        <a href="Herramientas-digitales.html">Herramientas Digitales</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Articulos.html" class="dropbtn-sub">Artículos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Ultimos-avances.html">últimos avances</a>
+                        <a href="Innovacion-en-educacion.html">Innovación en educación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Enseñando-matematicas.html" class="dropbtn">Enseñando matemáticas</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Metodologias-adaptadas" class="dropbtn-sub">Metodologías adaptadas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="visual-thinking.html">Visual thinking</a>
+                        <a href="Aprende-jugando.html">Aprende jugando</a>
+                        <a href="Recursos-manipulativos.html">Recursos manipulativos</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Tecnologias-educativas.html" class="dropbtn-sub">Tecnologías Educativas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Aplicaciones-interactivas.html">Aplicaciones Interactivas</a>
+                        <a href="Software-educativos.html">Software Educativos</a>
+                    </div>
+                </div> 
+                <div class="submenu">
+                    <a href="La-educacion-la-matematicas-y-la-vida.html" class="dropbtn-sub">La educación, las Matemáticas y la vida</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matematicas-en-la-cotidianidad.html">Matemáticas en la cotidianidad</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Juegos.html" class="dropbtn">Juegos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Juegos-educativos" class="dropbtn-sub">Juegos Educativos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matemativas-divertidas.html">Matemáticas Divertidas</a>
+                        <a href="Resolucion-de-problemas.html">Resolución de problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-estrategias.html" class="dropbtn-sub">Juegos de estrategia</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Logica-y-razonamiento.html">Lógica y Razonamiento</a>
+                        <a href="Desarrollo-de-habilidades-matematicas.html">Desarrollo de habilidades Matemáticas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-relajacion.html" class="dropbtn-sub">Juegos de Relajación</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Juegos-sensoriales.html">Juegos sensoriales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="comunidad.html" class="dropbtn">Comunidad</a>
+            <div class="dropdown-content">
+                <a href="foros.html">Foros</a>
+                <a href="grupos-apoyo.html">Grupos de Apoyo</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franja Azul</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .franja-azul {
+            width: 100%;
+            height: 100px; /* Altura de la franja */
+            background-color: rgb(42, 144, 240); /* Color azul */
+            display: flex;
+            justify-content: center; /* Centrado horizontal */
+            align-items: center; /* Centrado vertical */
+        }
+
+        .franja-azul h1 {
+            color: white;
+            font-size: 2.5em;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="franja-azul">
+        <h1>Las operaciones matemáticas en la vida cotidiana</h1>
+    </div>
+
+</body>
+</html>
+
+
+    <div class="franja-azul"></div>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Matemáticas en la Vida Cotidiana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #3b4b6b;
+            text-align: center;
+        }
+        .activity {
+            background-color: #b5dbeb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 2px solid #bedff5;
+            color: #000000;
+        }
+        .exercise {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #000000;
+            text-align: justify;
+        }
+        .input-field {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 60px;
+            text-align: center;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .feedback {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .icon {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .figure {
+            text-align: center;
+        }
+        img {
+            max-width: 100px;
+            height: auto;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<div class="container">
+
+    <!-- Actividad 1: Contando frutas -->
+    <div class="activity">
+        <h2>1. Contando Frutas</h2>
+        <p>Las matemáticas están presentes cuando contamos objetos. Contemos manzanas.</p>
+        <div class="exercise">
+            <p>Si tienes 3 manzanas y te regalan 2 más, ¿cuántas manzanas tienes en total?</p>
+            <p>🍎🍎🍎+🍎🍎</p>
+            <input type="number" id="respuesta1" class="input-field" placeholder="Total">
+            <button class="button" onclick="checkAnswer1()">Verificar</button>
+            <div id="feedback1" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Actividad 2: Comprando dulces -->
+    <div class="activity">
+        <h2>2. Comprando Dulces</h2>
+        <p>Aprendemos matemáticas cuando calculamos el dinero que usamos para comprar cosas.</p>
+        <div class="exercise">
+            <p>Si cada dulce cuesta $3 y compras 4 dulces, ¿cuánto dinero necesitas?</p>
+            <p>$3 *🍬🍬🍬🍬</p>
+            <input type="number" id="respuesta2" class="input-field" placeholder="Total">
+            <button class="button" onclick="checkAnswer2()">Verificar</button>
+            <div id="feedback2" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Actividad 3: Dividiendo galletas -->
+    <div class="activity">
+        <h2>3. Dividiendo Galletas</h2>
+        <p>Las divisiones ayudan a repartir cosas de forma justa. Vamos a dividir galletas.</p>
+        <div class="exercise">
+            <p>Tienes 6 galletas y las repartes entre 3 amigos. ¿Cuántas galletas recibe cada uno?</p>
+            <div class="figure">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+                <img src="https://img.icons8.com/?size=100&id=HEA9CC9dqq8c&format=png&color=000000" alt="Galleta">
+            </div>
+            <input type="number" id="respuesta3" class="input-field" placeholder="Galletas por amigo">
+            <button class="button" onclick="checkAnswer3()">Verificar</button>
+            <div id="feedback3" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Actividad 4: Tiempo con el reloj -->
+    <div class="activity">
+        <h2>4. Tiempo con el Reloj</h2>
+        <p>El tiempo es parte de las matemáticas. Practiquemos con relojes.</p>
+        <div class="exercise">
+            <p>Si son las 2:00 p.m. y tu clase termina a las 3:30 p.m., ¿cuánto tiempo falta para que termine la clase?</p>
+            <input type="number" id="respuesta4" class="input-field" placeholder="Minutos">
+            <button class="button" onclick="checkAnswer4()">Verificar</button>
+            <div id="feedback4" class="feedback"></div>
+        </div>
+    </div>
+    <!-- Actividad 5: Repartiendo caramelos -->
+<div class="activity">
+    <h2>5. Repartiendo Caramelos</h2>
+    <p>Cuando repartimos caramelos, estamos usando matemáticas para asegurarnos de que todos reciban la misma cantidad.</p>
+    <div class="exercise">
+        <p>Tienes 12 caramelos y los repartes entre 4 amigos. ¿Cuántos caramelos recibe cada amigo?</p>
+        <p>🍬🍬🍬🍬🍬🍬🍬🍬🍬🍬🍬🍬/4</p>
+        <input type="number" id="respuesta5" class="input-field" placeholder="Caramelos por amigo">
+        <button class="button" onclick="checkAnswer5()">Verificar</button>
+        <div id="feedback5" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Actividad 6: Calculando el cambio -->
+<div class="activity">
+    <h2>6. Calculando el Cambio</h2>
+    <p>Cuando pagamos en una tienda, necesitamos calcular el cambio que nos darán.</p>
+    <div class="exercise">
+        <p>Si compras un juguete que cuesta $8 y pagas con un billete de $10, ¿cuánto cambio te darán?</p>
+        <div class="figure">
+            <img src="https://img.icons8.com/?size=100&id=8KjmxtKj6Qe0&format=png&color=000000" alt="Billete">
+            <img src="https://img.icons8.com/?size=100&id=8KjmxtKj6Qe0&format=png&color=000000" alt="Billete">
+        </div>
+        <input type="number" id="respuesta6" class="input-field" placeholder="Cambio">
+        <button class="button" onclick="checkAnswer6()">Verificar</button>
+        <div id="feedback6" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Actividad 7: Cuántos pasos -->
+<div class="activity">
+    <h2>7. Cuántos Pasos</h2>
+    <p>Cuando caminamos, podemos calcular la distancia en pasos.</p>
+    <div class="exercise">
+        <p>Si das 5 pasos para cruzar una pequeña habitación y luego 7 pasos más para llegar al sofá, ¿cuántos pasos has dado en total?</p>
+        <div class="figure">
+            <img src="https://img.icons8.com/?size=100&id=34590&format=png&color=000000" alt="Pasos">
+            <img src="https://img.icons8.com/?size=100&id=34590&format=png&color=000000" alt="Pasos">
+        </div>
+        <input type="number" id="respuesta7" class="input-field" placeholder="Pasos Totales">
+        <button class="button" onclick="checkAnswer7()">Verificar</button>
+        <div id="feedback7" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Actividad 8: Midiendo ingredientes -->
+<div class="activity">
+    <h2>8. Midiendo Ingredientes</h2>
+    <p>Cuando cocinamos, necesitamos medir los ingredientes correctamente.</p>
+    <div class="exercise">
+        <p>Si una receta pide 3 tazas de azúcar y ya has añadido 1 taza, ¿cuántas tazas más necesitas añadir?</p>
+        <div class="figure">
+            <img src="https://img.icons8.com/?size=100&id=64597&format=png&color=000000" alt="Taza de azúcar">
+            <img src="https://img.icons8.com/?size=100&id=64597&format=png&color=000000" alt="Taza de azúcar">
+            <img src="https://img.icons8.com/?size=100&id=64597&format=png&color=000000" alt="Taza de azúcar">
+        </div>
+        <input type="number" id="respuesta8" class="input-field" placeholder="Tazas restantes">
+        <button class="button" onclick="checkAnswer8()">Verificar</button>
+        <div id="feedback8" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Actividad 9: Sumando el total de juguetes -->
+<div class="activity">
+    <h2>9. Sumando el Total de Juguetes</h2>
+    <p>Podemos contar y sumar el total de juguetes que tenemos.</p>
+    <div class="exercise">
+        <p>Si tienes 6 pelotas y 3 coches de juguete, ¿cuántos juguetes tienes en total?</p>
+        <div class="figure">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=17570&format=png&color=000000" alt="Pelota">
+            <img src="https://img.icons8.com/?size=100&id=fsoiqMUp0O4v&format=png&color=000000" alt="Coche de juguete">
+            <img src="https://img.icons8.com/?size=100&id=fsoiqMUp0O4v&format=png&color=000000" alt="Coche de juguete">
+            <img src="https://img.icons8.com/?size=100&id=fsoiqMUp0O4v&format=png&color=000000" alt="Coche de juguete">
+        </div>
+        <input type="number" id="respuesta9" class="input-field" placeholder="Juguetes Totales">
+        <button class="button" onclick="checkAnswer9()">Verificar</button>
+        <div id="feedback9" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Actividad 10: Compartiendo globos -->
+<div class="activity">
+    <h2>10. Compartiendo Globos</h2>
+    <p>Cuando compartimos globos, podemos usar las matemáticas para asegurarnos de que todos reciben lo mismo.</p>
+    <div class="exercise">
+        <p>Tienes 10 globos y los compartes entre 2 amigos. ¿Cuántos globos recibe cada amigo?</p>
+        <div class="figure">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+            <img src="https://img.icons8.com/?size=100&id=26145&format=png&color=000000" alt="Globo">
+
+        </div>
+        <input type="number" id="respuesta10" class="input-field" placeholder="Globos por amigo">
+        <button class="button" onclick="checkAnswer10()">Verificar</button>
+        <div id="feedback10" class="feedback"></div>
+    </div>
+</div>
+<script>
+    function checkAnswer1() {
+        var respuesta = document.getElementById('respuesta1').value;
+        var feedback = document.getElementById('feedback1');
+        if (respuesta == 5) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Tienes 5 manzanas.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer2() {
+        var respuesta = document.getElementById('respuesta2').value;
+        var feedback = document.getElementById('feedback2');
+        if (respuesta == 12) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Necesitas $12.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer3() {
+        var respuesta = document.getElementById('respuesta3').value;
+        var feedback = document.getElementById('feedback3');
+        if (respuesta == 2) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Cada amigo recibe 2 galletas.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer4() {
+        var respuesta = document.getElementById('respuesta4').value;
+        var feedback = document.getElementById('feedback4');
+        if (respuesta == 90) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Faltan 90 minutos.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+    function checkAnswer5() {
+        var respuesta = document.getElementById('respuesta5').value;
+        var feedback = document.getElementById('feedback5');
+        if (respuesta == 3) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Cada amigo recibe 3 caramelos.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer6() {
+        var respuesta = document.getElementById('respuesta6').value;
+        var feedback = document.getElementById('feedback6');
+        if (respuesta == 2) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Te darán $2 de cambio.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer7() {
+        var respuesta = document.getElementById('respuesta7').value;
+        var feedback = document.getElementById('feedback7');
+        if (respuesta == 12) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Has dado 12 pasos en total.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer8() {
+        var respuesta = document.getElementById('respuesta8').value;
+        var feedback = document.getElementById('feedback8');
+        if (respuesta == 2) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Necesitas añadir 2 tazas más.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer9() {
+        var respuesta = document.getElementById('respuesta9').value;
+        var feedback = document.getElementById('feedback9');
+        if (respuesta == 9) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Tienes 9 juguetes en total.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+    function checkAnswer10() {
+        var respuesta = document.getElementById('respuesta10').value;
+        var feedback = document.getElementById('feedback10');
+        if (respuesta == 5) {
+            feedback.innerHTML = '<span class="icon correct">✔️</span> ¡Correcto! Cada amigo recibe 5 globos.';
+        } else {
+            feedback.innerHTML = '<span class="icon wrong">❌</span> Intenta de nuevo.';
+        }
+    }
+
+</script>
+</html>
+<footer>
+    <style>
+        footer {
+            background-color: #3b4b6b;
+            color: white;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            height: 40vh;
+            border-radius: 20px;
+            margin: 10px
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 1;
+            margin: 10px;
+            min-width: 150px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            text-decoration: underline;
+        }
+    </style>
+        <div class="footer-container">
+            <!-- Primera Columna: Logo -->
+            <div class="footer-column">
+                <img src="Imagenes/neuro-numero.jpg" alt="" style="height: 150px;">
+            </div>
+            
+            <!-- Segunda Columna: Políticas de Privacidad -->
+            <div class="footer-column">
+                <h3>Políticas de Privacidad</h3>
+                <ul>
+                    <li><a href="politica-privacidad.html">Privacidad</a></li>
+                    <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                    <li><a href="cookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            
+            <!-- Tercera Columna: Redes Sociales -->
+            <div class="footer-column">
+                <h3>Síguenos</h3>
+                <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                <a href="https://x.com" target="_blank">X</a>
+            </div>
+            
+            <!-- Cuarta Columna: Juegos de Matemáticas -->
+            <div class="footer-column">
+                <h3>Juegos de Matemáticas</h3>
+                <ul>
+                    <li><a href="juego1.html">Juego 1</a></li>
+                    <li><a href="juego2.html">Juego 2</a></li>
+                    <li><a href="juego3.html">Juego 3</a></li>
+                    <li><a href="juego4.html">Juego 4</a></li>
+                </ul>
+            </div>
+            
+            <!-- Quinta Columna: Comunidad -->
+            <div class="footer-column">
+                <h3>Comunidad</h3>
+                <ul>
+                    <li><a href="foros.html">Foros</a></li>
+                    <li><a href="grupos-apoyo.html">Grupos de Apoyo</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="mapa-de-sitio.html">Mapa del Sitio</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Matemáticas Básicas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #82c4c3;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #0073a8;
+        }
+
+        .content {
+            margin: 20px 0;
+        }
+
+        .example {
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            width: 30px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        .important {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía de Matemáticas Básicas</h1>
+        <p>Una guía simple y visual para aprender matemáticas de manera divertida.</p>
+    </header>
+
+    <section>
+        <h2 class="section-title"><img src="icon-suma.png" alt="Icono de suma" class="icon"> Suma</h2>
+        <div class="content">
+            <p>La <span class="important">suma</span> es cuando juntamos dos o más números para encontrar un total.</p>
+            <div class="example">
+                <p><strong>Ejemplo:</strong> 2 + 3 = 5</p>
+                <p>Imagina que tienes 2 manzanas 🍎 y te dan 3 más. En total, ahora tienes 5 manzanas 🍎🍎🍎🍎🍎.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title"><img src="icon-resta.png" alt="Icono de resta" class="icon"> Resta</h2>
+        <div class="content">
+            <p>La <span class="important">resta</span> es cuando quitamos una cantidad de otra.</p>
+            <div class="example">
+                <p><strong>Ejemplo:</strong> 5 - 2 = 3</p>
+                <p>Si tienes 5 manzanas 🍎🍎🍎🍎🍎 y comes 2, te quedan 3 manzanas 🍎🍎🍎.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title"><img src="icon-multiplicacion.png" alt="Icono de multiplicación" class="icon"> Multiplicación</h2>
+        <div class="content">
+            <p>La <span class="important">multiplicación</span> es cuando sumamos un mismo número varias veces.</p>
+            <div class="example">
+                <p><strong>Ejemplo:</strong> 3 x 2 = 6</p>
+                <p>Imagina que tienes 3 grupos de 2 manzanas 🍎🍎, 🍎🍎, 🍎🍎. En total, tienes 6 manzanas 🍎🍎🍎🍎🍎🍎.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title"><img src="icon-division.png" alt="Icono de división" class="icon"> División</h2>
+        <div class="content">
+            <p>La <span class="important">división</span> es cuando se reparte algo en partes iguales.</p>
+            <div class="example">
+                <p><strong>Ejemplo:</strong> 6 ÷ 2 = 3</p>
+                <p>Si tienes 6 manzanas 🍎🍎🍎🍎🍎🍎 y las repartes entre 2 amigos, cada uno recibe 3 manzanas 🍎🍎🍎.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación de Suma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            border: 2px solid #ddd;
+            background-color: #fff;
+        }
+
+        .child, .mother {
+            position: absolute;
+            bottom: 50px;
+            width: 100px;
+            height: 200px;
+        }
+
+        .child {
+            left: 50px;
+            background: url('child.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .mother {
+            right: 50px;
+            background: url('mother.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .apple {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('apple.png') no-repeat center;
+            background-size: contain;
+        }
+
+        #apples-container {
+            position: absolute;
+            bottom: 70px;
+            left: 160px;
+            transition: all 2s;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        #final-count {
+            display: none;
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Animación de Suma: Manzanas</h1>
+    <div class="container">
+        <div class="child"></div>
+        <div class="mother"></div>
+        <div id="apples-container">
+            <!-- Manzanas iniciales (2 manzanas) -->
+            <div class="apple" style="left: 0;"></div>
+            <div class="apple" style="left: 50px;"></div>
+        </div>
+    </div>
+    <button onclick="startAnimation()">Iniciar Animación</button>
+    <div id="final-count">¡Ahora tienes 5 manzanas!</div>
+
+    <script>
+        function startAnimation() {
+            const applesContainer = document.getElementById('apples-container');
+
+            // Añadir manzanas adicionales (3 manzanas)
+            for (let i = 0; i < 3; i++) {
+                const apple = document.createElement('div');
+                apple.classList.add('apple', 'hidden');
+                apple.style.left = `${(i + 2) * 50}px`;
+                applesContainer.appendChild(apple);
+            }
+
+            // Mostrar las manzanas gradualmente
+            setTimeout(() => {
+                document.querySelectorAll('.apple.hidden').forEach((apple, index) => {
+                    setTimeout(() => {
+                        apple.classList.remove('hidden');
+                        apple.classList.add('show');
+                    }, index * 500);
+                });
+            }, 1000);
+
+            // Mostrar el mensaje final después de la animación
+            setTimeout(() => {
+                document.getElementById('final-count').style.display = 'block';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+

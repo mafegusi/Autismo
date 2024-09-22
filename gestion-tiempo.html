@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Números</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: calibri "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-align: center;
+            background-color: #f0f4f7; /* Fondo gris claro */
+            border-radius: 20px;
+        }
+    
+        *,  
+            ::after,
+            ::before  { margin:0;
+            padding:0;            
+            box-sizing: border-box;
+        }
+    
+        :root {
+            --primary-color: #3b4b6b; /* Azul oscuro para el encabezado */
+            --secondary-color: #4a90e2; /* Azul para el menú */
+            --accent-color: #8cb3d9; /* Azul claro para los detalles */
+            --text-color: #000000; /* Texto negro */
+            --background-color: #f0f4f7; /* Fondo gris claro */
+            --white: #ffffff; /* Blanco puro */
+            --gradient-start: #3b4b6b; /* Degradado de azul oscuro */
+            --gradient-end: #8cb3d9; /* a azul claro */
+        }
+    
+        /* Estilo del header */
+        header {
+            background-image: url(Imagenes/neuro-numero.jpg);
+            height: 500px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--white);
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: right;
+        }
+        section {
+            min-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        /* Estilos del título en el header */
+        header h1 {
+            font-size: 60px;
+            color: black;
+            text-align: cente
+        }
+
+        /* Estilos para el subtítulo en el header */
+        header p {
+            font-size: 70px;
+            margin: 1em 0;
+            text-align: center;
+            color: black;
+        }
+    
+    
+        /* Estilos para el menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: 4px solid var(--accent-color);
+        }
+    
+        /* Estilos de los enlaces en el menú de navegación */
+        nav a {
+            color: var(--white);
+            padding: 4px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-right: 1px solid var(--accent-color);
+            flex-grow: 1;
+            font-weight: bold;
+            font-size: 20;
+            border-radius: 30px;
+        }
+    
+        /* Quitar borde derecho del último enlace en el menú */
+        nav a:last-child {
+            border-right: none;
+        }
+    
+        /* Estilos de hover en los enlaces del menú */
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+    
+        /* Divider en el menú */
+        nav .divider {
+            width: 1px;
+            background-color: var(--accent-color);
+            margin: 0 10px;
+            height: auto;
+        }
+    
+        /* Menú desplegable */
+        .dropdown {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+    
+        /* Contenido del menú desplegable */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        /* Estilos de los enlaces en el menú desplegable */
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+    
+        /* Hover en los enlaces del menú desplegable */
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+    
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    
+        /* Menú secundario (submenú) */
+        .dropdown-subcontent {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 100%;
+            top: 0;
+            transform: translateX(0%);
+        }
+    
+        /* Mostrar submenú al hacer hover en el elemento padre */
+        .dropdown-content .submenu:hover .dropdown-subcontent {
+            display: block;
+        }
+    
+        /* Sombra en los elementos del menú */
+        nav a, .dropdown-content a, .dropdown-subcontent a {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Estilos para los botones en el header */
+        .header-buttons {
+            background-color: white;
+            color: white;
+            padding: 4px 8px; /* Botones más pequeños */
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: 2px solid white;
+            margin-right: 15px; /* Espaciado entre botones */
+            display: inline-block;
+        }
+       
+        /* Hover en los botones del header */
+        .header-button:hover {
+            background-color: #09b5d8;
+            color: black;
+        }
+        .header-content {
+        display: flex;
+        align-items: left;
+    }
+
+    .header-content h1 {
+        margin-right: 20px; /* Espacio entre el título y los botones */
+    }
+    </style>
+    
+<header>
+    <div class="header-container">
+        <div class="header-text">
+        <h1>Neuro-Números</h1></a>
+            <p>Descubriendo el poder de las matemáticas</p>
+        </div>
+    </div>
+</header>
+
+        
+        <!-- Botones de acciones -->
+        <div class="header-buttons">
+            <a href="bienvenida.html" class="header-button">Bienvenida</a>
+            <a href="ayuda.html" class="header-button">Ayuda</a>
+            <a href="historias-vida.html" class="header-button">Testimonios</a>
+            <a href="novedades.html" class="header-button">Novedades</a>
+            <a href="blog.html" class="header-button">Blog</a>
+            <a href="mapa-de-sitio.html" class="header-button">Mapa del sitio</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="Neuronumero.html">Inicio</a>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="explorando.html" class="dropbtn">Explorando</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Explorando.html" class="dropbtn-sub">Explorando el autismo</a>
+                    <div class="dropdown-subcontent">
+                        <a href="definicion-diagnostico.html">Definición y Diagnóstico</a>
+                        <a href="signos-sintomas.html">Signos y Síntomas</a>
+                        <a href="mitos-realidades.html">Mitos y Realidades</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="diversidad-neurocognitiva.html" class="dropbtn-sub">Diversidad Neurocognitiva</a>
+                    <div class="dropdown-subcontent">
+                        <a href="concepto-neurodiversidad.html">Concepto de Neurodiversidad</a>
+                        <a href="importancia-inclusion.html">Importancia de la Inclusión</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="vidas-y-vivencias.html" class="dropbtn-sub">Vidas y Vivencias</a>
+                    <div class="dropdown-subcontent">
+                        <a href="historias-vida.html">Historias de Vida</a>
+                        <a href="entrevistas-expertos.html">Entrevista con Expertos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Recursos-educativos.html" class="dropbtn">Recursos educativos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Guias-estudios.html" class="dropbtn-sub">Guías de estudios</a>
+                    <div class="dropdown-subcontent">
+                        <a href="matematicas basicas.html">Matemáticas básicas</a>
+                        <a href="Algebra-y-geometria.html">Álgebra y Geometría</a>
+                        <a href="problemas.html">Problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Consejos.html" class="dropbtn-sub">Consejos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Para-examenes.html">Para exámenes</a>
+                        <a href="Para-reducir-el-estres.html">Para reducir el estrés</a>
+                        <a href="Gestion-tiempo.html">Gestión del tiempo</a>
+                        <a href="Para-educadores.html">Para Educadores</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Recursos-adaptados.html" class="dropbtn-sub">Recursos adaptados</a>
+                    <div class="dropdown-subcontent">
+                        <a href="material-visual.html">Materiales visuales</a>
+                        <a href="material-auditivo.html">Materiales Auditivos</a>
+                        <a href="Herramientas-digitales.html">Herramientas Digitales</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Articulos.html" class="dropbtn-sub">Artículos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Ultimos-avances.html">últimos avances</a>
+                        <a href="Innovacion-en-educacion.html">Innovación en educación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Enseñando-matematicas.html" class="dropbtn">Enseñando matemáticas</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Metodologias-adaptadas" class="dropbtn-sub">Metodologías adaptadas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="visual-thinking.html">Visual thinking</a>
+                        <a href="Aprende-jugando.html">Aprende jugando</a>
+                        <a href="Recursos-manipulativos.html">Recursos manipulativos</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Tecnologias-educativas.html" class="dropbtn-sub">Tecnologías Educativas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Aplicaciones-interactivas.html">Aplicaciones Interactivas</a>
+                        <a href="Software-educativos.html">Software Educativos</a>
+                    </div>
+                </div> 
+                <div class="submenu">
+                    <a href="La-educacion-la-matematicas-y-la-vida.html" class="dropbtn-sub">La educación, las Matemáticas y la vida</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matematicas-en-la-cotidianidad.html">Matemáticas en la cotidianidad</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Juegos.html" class="dropbtn">Juegos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Juegos-educativos" class="dropbtn-sub">Juegos Educativos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matemativas-divertidas.html">Matemáticas Divertidas</a>
+                        <a href="Resolucion-de-problemas.html">Resolución de problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-estrategias.html" class="dropbtn-sub">Juegos de estrategia</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Logica-y-razonamiento.html">Lógica y Razonamiento</a>
+                        <a href="Desarrollo-de-habilidades-matematicas.html">Desarrollo de habilidades Matemáticas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-relajacion.html" class="dropbtn-sub">Juegos de Relajación</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Juegos-sensoriales.html">Juegos sensoriales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="comunidad.html" class="dropbtn">Comunidad</a>
+            <div class="dropdown-content">
+                <a href="foros.html">Foros</a>
+                <a href="grupos-apoyo.html">Grupos de Apoyo</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franja Azul</title>
+    <style>
+        .franja-azul {
+            width: 100%;
+            height: 7cm; /* Altura de la franja */
+            background-color: white; /* Color azul */
+        }
+    </style>
+</head>
+
+    <div class="franja-azul"></div>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <style>
+        /* Estilo general del body */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Estilo de la sección Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Imagen del Hero */
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Estilo del contenido */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: black;
+        }
+
+        /* Estilo del texto principal */
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        /* Estilo del texto secundario */
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Estilo del botón */
+        .hero-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content a:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Imagen de fondo -->
+        <img src="Imagenes/image0-_3_.jpg" alt="Hero Image">
+
+        <!-- Contenido del Hero -->
+        <div class="hero-content">
+            <h1>Gestión del tiempo</h1>
+        </div>
+    </div>
+</body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acordeón Anidado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #3b4b6b;
+        }
+        .accordion {
+            background-color: #eee;
+            color: #3b4b6b;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .active, .accordion:hover {
+            background-color: #a0d9f3;
+        }
+        .accordion:after {
+            content: '\002B';
+            color: #c8e8f1;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: "\2212";
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color:white;
+            overflow: hidden;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #000000;
+            text-align: justify;
+        }
+        .panel .sub-accordion {
+            background-color: rgb(137, 209, 231);
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #000000;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+<button class="accordion">Métodos para Organizar el Tiempo</button>
+<div class="panel">
+    <button class="accordion sub-accordion">Rutinas Visuales</button>
+    <div class="panel">
+        <p>Usa cuadros o gráficos visuales que te muestren lo que tienes que hacer en cada momento del día. Puedes usar imágenes o símbolos que representen las actividades diarias. Esto crea un patrón que es fácil de seguir y entender.</p>
+    </div>
+    <button class="accordion sub-accordion">Método Pomodoro Visual</button>
+    <div class="panel">
+        <p>Usa un temporizador visual para trabajar 25 minutos y luego tómate un descanso de 5 minutos. Los temporizadores con luces o colores pueden ser especialmente útiles para hacer que el tiempo sea tangible.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Horario por Bloques de Tiempo (Time Blocking)</button>
+    <div class="panel">
+        <p>Crea un calendario visual donde dividas tu día en bloques. Cada bloque representa una tarea o actividad específica, como "desayunar", "hacer ejercicio", "trabajar en una tarea", o "descansar". Tener bloques regulares ayuda a mantener una rutina estable.</p>
+    </div>
+    <button class="accordion sub-accordion">Técnica de Pasos Pequeños</button>
+    <div class="panel">
+        <p>Divide grandes tareas en pasos más pequeños. Para muchas personas autistas, las tareas grandes pueden ser abrumadoras, pero al dividirlas en pasos más sencillos, se vuelven más manejables.</p>
+    </div>
+</div>
+
+<button class="accordion">¿Cómo Usar el Calendario?</button>
+<div class="panel">
+    <button class="accordion sub-accordion">Calendarios Visuales</button>
+    <div class="panel">
+        <p>Usa calendarios visuales con colores, íconos o pegatinas que representen actividades importantes. Por ejemplo, puedes usar un símbolo de "libro" para recordar que es hora de estudiar o un "sol" para la hora de salir a caminar. Este tipo de calendario ayuda a hacer el tiempo más comprensible y menos abstracto.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Repetición de Rutinas</button>
+    <div class="panel">
+        <p>Si encuentras útil hacer las mismas actividades en los mismos días de la semana, usa el calendario para repetir esas rutinas. Por ejemplo, si todos los lunes tienes terapia o actividad física, márcalo en tu calendario de manera repetitiva. Esto crea estabilidad y predecibilidad.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Notificaciones y Recordatorios Claros</button>
+    <div class="panel">
+        <p>Si usas un calendario digital, activa las notificaciones para que te avisen con suficiente anticipación antes de cada evento. Algunas personas autistas pueden beneficiarse de avisos que sean con imágenes o sonidos calmantes.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Revisiones Diarias y Semanales</button>
+    <div class="panel">
+        <p>Al principio o al final del día, revisa tu calendario para asegurarte de que estás preparado para lo que viene. También es útil hacer una revisión semanal para anticipar los eventos de los próximos días. Esto reduce sorpresas y cambios inesperados, que pueden generar ansiedad.
+        </p>
+    </div>
+</div>
+
+<button class="accordion">¿Cómo Realizar Listas de Tareas de Forma Apropiada?</button>
+<div class="panel">
+    <button class="accordion sub-accordion">Listas Visuales</button>
+    <div class="panel">
+        <p>Usa imágenes o íconos junto con las palabras para cada tarea. Por ejemplo, si una de las tareas es "lavar los platos", puedes añadir una imagen de un plato o utensilio. Las imágenes ayudan a que las tareas sean más concretas y fáciles de recordar.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Tareas Claras y Específicas</button>
+    <div class="panel">
+        <p>Asegúrate de que las tareas sean muy claras y específicas. En lugar de "limpiar la habitación", podrías escribir "recoger los juguetes del suelo". Dividir las tareas en pasos más pequeños hace que sean más manejables y menos abrumadoras.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Usar Colores o Categorías</button>
+    <div class="panel">
+        <p>Agrupa las tareas por colores o categorías. Por ejemplo, las tareas de la casa pueden ser de un color, las tareas de la escuela o trabajo de otro color. Esto ayuda a visualizar mejor qué tipo de actividad es cada una, lo cual puede facilitar el enfoque.
+        </p>
+    </div>
+    <button class="accordion sub-accordion">Marcar el Progreso</button>
+    <div class="panel">
+        <p>Usa un sistema visual para marcar cuando una tarea está completada. Esto puede ser tan simple como tachar la tarea o usar una pegatina o símbolo de "check". Muchas personas autistas encuentran satisfacción en ver visualmente el progreso que están haciendo.</p>
+    </div>
+    <button class="accordion sub-accordion">Herramientas Digitales con Recordatorios</button>
+    <div class="panel">
+        <p>Si prefieres usar listas digitales, busca aplicaciones que te permitan añadir recordatorios o notificaciones.</p>
+    </div>
+    <button class="accordion sub-accordion">Tiempos y Plazos Flexibles</button>
+    <div class="panel">
+        <p> En lugar de fijar un tiempo exacto para cada tarea, usa ventanas de tiempo. Por ejemplo, "entre 10 y 12 am". Esto permite tener cierta flexibilidad, pero manteniendo la estructura necesaria.</p>
+    </div>
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección con Título</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section">
+        <h1>Calendario Interactivo</h1>
+       
+    </div>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Interactivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calendar-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .calendar-header h2 {
+            margin: 0;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .calendar-day {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100px;
+        }
+        .calendar-day span {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .calendar-day img {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+        .calendar-weekday {
+            font-weight: bold;
+            padding: 10px 0;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .icon-picker {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .icon-picker img {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+        }
+        .selected-day {
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calendar-container">
+    <div class="calendar-header">
+        <button id="prevMonth">← Mes Anterior</button>
+        <h2 id="monthYear">Mes Año</h2>
+        <button id="nextMonth">Mes Siguiente →</button>
+    </div>
+
+    <div class="controls">
+        <div class="icon-picker">
+            <img src="Imagenes/icons8-libro-48.png" alt="Libro" id="bookIcon">
+            <img src="https://img.icons8.com/?size=100&id=qnMTFGbujs2I&format=png&color=000000" alt="Sol" id="sunIcon">
+            <img src="https://img.icons8.com/ios/50/000000/gymnastics.png" alt="Ejercicio" id="exerciseIcon">
+            <!-- Agregar 20 iconos más -->
+            <img src="Imagenes/icons8-bicicleta-48.png" alt="Bicicleta" id="bikeIcon">
+            <img src="https://img.icons8.com/ios/50/000000/briefcase.png" alt="Trabajo" id="workIcon">
+            <img src="https://img.icons8.com/ios/50/000000/coffee.png" alt="Café" id="coffeeIcon">
+            <img src="https://img.icons8.com/ios/50/000000/film-reel.png" alt="Película" id="movieIcon">
+            <img src="https://img.icons8.com/ios/50/000000/musical-notes.png" alt="Música" id="musicIcon">
+            <img src="https://img.icons8.com/ios/50/000000/dumbbell.png" alt="Gimnasio" id="gymIcon">
+            <img src="https://img.icons8.com/ios/50/000000/swimming.png" alt="Natación" id="swimIcon">
+            <img src="https://img.icons8.com/ios/50/000000/paint-palette.png" alt="Arte" id="artIcon">
+            <img src="https://img.icons8.com/ios/50/000000/tv.png" alt="TV" id="tvIcon">
+            <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="Compras" id="shoppingIcon">
+            <img src="https://img.icons8.com/?size=100&id=VIdzRfHEcJ5M&format=png&color=000000" alt="Cocinar" id="cookingIcon">
+            <img src="https://img.icons8.com/?size=100&id=ruoVTgjNlTNV&format=png&color=000000" alt="Doctor" id="doctorIcon">
+            <img src="https://img.icons8.com/ios/50/000000/basketball.png" alt="Baloncesto" id="basketballIcon">
+            <img src="https://img.icons8.com/?size=100&id=uKq70aYmEQbP&format=png&color=000000" alt="Parque" id="parkIcon">
+            <img src="https://img.icons8.com/ios/50/000000/football.png" alt="Fútbol" id="footballIcon">
+            <img src="https://img.icons8.com/ios/50/000000/family.png" alt="Familia" id="familyIcon">
+            <img src="https://img.icons8.com/?size=100&id=Gjb8DPiIX3XW&format=png&color=000000" alt="Dormir" id="sleepIcon">
+            <img src="Imagenes/icons8-escuela-48.png" alt="Escuela" id="schoolIcon">
+        </div>
+    </div>
+
+    <div class="calendar" id="calendar"></div>
+</div>
+
+<script>
+    const calendar = document.getElementById('calendar');
+    const monthYear = document.getElementById('monthYear');
+    let selectedIcon = null;
+    let currentDate = new Date();
+
+    // Mapeo de íconos
+    const iconMap = {
+        "book": "Imagenes/icons8-libro-48.png",
+        "sun": "https://img.icons8.com/?size=100&id=qnMTFGbujs2I&format=png&color=000000",
+        "exercise": "https://img.icons8.com/ios/50/000000/gymnastics.png",
+        "bike": "Imagenes/icons8-bicicleta-48.png",
+        "work": "https://img.icons8.com/ios/50/000000/briefcase.png",
+        "coffee": "https://img.icons8.com/ios/50/000000/coffee.png",
+        "movie": "https://img.icons8.com/ios/50/000000/film-reel.png",
+        "music": "https://img.icons8.com/ios/50/000000/musical-notes.png",
+        "gym": "https://img.icons8.com/ios/50/000000/dumbbell.png",
+        "swim": "https://img.icons8.com/ios/50/000000/swimming.png",
+        "art": "https://img.icons8.com/ios/50/000000/paint-palette.png",
+        "tv": "https://img.icons8.com/ios/50/000000/tv.png",
+        "shopping": "https://img.icons8.com/ios/50/000000/shopping-cart.png",
+        "cooking": "https://img.icons8.com/?size=100&id=VIdzRfHEcJ5M&format=png&color=000000",
+        "doctor": "https://img.icons8.com/?size=100&id=ruoVTgjNlTNV&format=png&color=000000",
+        "basketball": "https://img.icons8.com/ios/50/000000/basketball.png",
+        "park": "https://img.icons8.com/?size=100&id=uKq70aYmEQbP&format=png&color=000000",
+        "football": "https://img.icons8.com/ios/50/000000/football.png",
+        "family": "https://img.icons8.com/ios/50/000000/family.png",
+        "sleep": "https://img.icons8.com/?size=100&id=Gjb8DPiIX3XW&format=png&color=000000",
+        "school": "Imagenes/icons8-escuela-48.png"
+    };
+
+   // Selección de iconos
+   document.getElementById('bookIcon').onclick = () => selectedIcon = "book";
+    document.getElementById('sunIcon').onclick = () => selectedIcon = "sun";
+    document.getElementById('exerciseIcon').onclick = () => selectedIcon = "exercise";
+    // Añadir selección de los nuevos iconos
+    document.getElementById('bikeIcon').onclick = () => selectedIcon = "bike";
+    document.getElementById('workIcon').onclick = () => selectedIcon = "work";
+    document.getElementById('coffeeIcon').onclick = () => selectedIcon = "coffee";
+    document.getElementById('movieIcon').onclick = () => selectedIcon = "movie";
+    document.getElementById('musicIcon').onclick = () => selectedIcon = "music";
+    document.getElementById('gymIcon').onclick = () => selectedIcon = "gym";
+    document.getElementById('swimIcon').onclick = () => selectedIcon = "swim";
+    document.getElementById('artIcon').onclick = () => selectedIcon = "art";
+    document.getElementById('tvIcon').onclick = () => selectedIcon = "tv";
+    document.getElementById('shoppingIcon').onclick = () => selectedIcon = "shopping";
+    document.getElementById('cookingIcon').onclick = () => selectedIcon = "cooking";
+    document.getElementById('doctorIcon').onclick = () => selectedIcon = "doctor";
+    document.getElementById('basketballIcon').onclick = () => selectedIcon = "basketball";
+    document.getElementById('parkIcon').onclick = () => selectedIcon = "park";
+    document.getElementById('footballIcon').onclick = () => selectedIcon = "football";
+    document.getElementById('familyIcon').onclick = () => selectedIcon = "family";
+    document.getElementById('sleepIcon').onclick = () => selectedIcon = "sleep";
+    document.getElementById('schoolIcon').onclick = () => selectedIcon = "school";
+
+    // Obtener datos del almacenamiento local
+    function loadIconsFromStorage() {
+        const iconsData = localStorage.getItem('calendarIcons');
+        return iconsData ? JSON.parse(iconsData) : {};
+    }
+
+    // Guardar datos en el almacenamiento local
+    function saveIconsToStorage(icons) {
+        localStorage.setItem('calendarIcons', JSON.stringify(icons));
+    }
+
+    // Inicialización de los iconos almacenados
+    let iconsOnCalendar = loadIconsFromStorage();
+
+    // Función para generar el calendario
+    function generateCalendar() {
+        const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+        calendar.innerHTML = '';
+
+        const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        weekdays.forEach(day => {
+            const weekdayElement = document.createElement('div');
+            weekdayElement.classList.add('calendar-weekday');
+            weekdayElement.textContent = day;
+            calendar.appendChild(weekdayElement);
+        });
+
+        // Espacios vacíos para los días antes del primer día del mes
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDay = document.createElement('div');
+            calendar.appendChild(emptyDay);
+        }
+
+        // Crear días del mes
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('calendar-day');
+            dayElement.textContent = day;
+
+            // Verificar si ya hay un icono guardado para este día
+            const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+            if (iconsOnCalendar[key]) {
+                const img = document.createElement('img');
+                img.src = iconMap[iconsOnCalendar[key]];
+                dayElement.appendChild(img);
+            }
+
+            // Evento de clic para agregar o eliminar iconos
+            dayElement.onclick = function () {
+                if (selectedIcon) {
+                    const existingImg = dayElement.querySelector('img');
+                    if (existingImg) {
+                        dayElement.removeChild(existingImg); // Eliminar icono si ya está
+                        delete iconsOnCalendar[key]; // Eliminar del almacenamiento
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = iconMap[selectedIcon];
+                        dayElement.appendChild(img);
+                        iconsOnCalendar[key] = selectedIcon; // Guardar el icono
+                    }
+                    saveIconsToStorage(iconsOnCalendar); // Guardar cambios en localStorage
+                }
+            };
+
+            calendar.appendChild(dayElement);
+        }
+
+        monthYear.textContent = `${currentDate.toLocaleString('es-ES', { month: 'long' })} ${currentDate.getFullYear()}`;
+    }
+
+    // Navegación de meses
+    document.getElementById('prevMonth').onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        generateCalendar();
+    };
+
+    document.getElementById('nextMonth').onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        generateCalendar();
+    };
+
+    generateCalendar();
+</script>
+</html>
+<footer>
+    <style>
+        footer {
+            background-color: #3b4b6b;
+            color: white;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            height: 40vh;
+            border-radius: 20px;
+            margin: 10px
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 1;
+            margin: 10px;
+            min-width: 150px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            text-decoration: underline;
+        }
+    </style>
+        <div class="footer-container">
+            <!-- Primera Columna: Logo -->
+            <div class="footer-column">
+                <img src="Imagenes/neuro-numero.jpg" alt="" style="height: 150px;">
+            </div>
+            
+            <!-- Segunda Columna: Políticas de Privacidad -->
+            <div class="footer-column">
+                <h3>Políticas de Privacidad</h3>
+                <ul>
+                    <li><a href="politica-privacidad.html">Privacidad</a></li>
+                    <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                    <li><a href="cookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            
+            <!-- Tercera Columna: Redes Sociales -->
+            <div class="footer-column">
+                <h3>Síguenos</h3>
+                <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                <a href="https://x.com" target="_blank">X</a>
+            </div>
+            
+            <!-- Cuarta Columna: Juegos de Matemáticas -->
+            <div class="footer-column">
+                <h3>Juegos de Matemáticas</h3>
+                <ul>
+                    <li><a href="juego1.html">Juego 1</a></li>
+                    <li><a href="juego2.html">Juego 2</a></li>
+                    <li><a href="juego3.html">Juego 3</a></li>
+                    <li><a href="juego4.html">Juego 4</a></li>
+                </ul>
+            </div>
+            
+            <!-- Quinta Columna: Comunidad -->
+            <div class="footer-column">
+                <h3>Comunidad</h3>
+                <ul>
+                    <li><a href="foros.html">Foros</a></li>
+                    <li><a href="grupos-apoyo.html">Grupos de Apoyo</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="mapa-de-sitio.html">Mapa del Sitio</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>

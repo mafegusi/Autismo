@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Números</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: calibri "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-align: center;
+            background-color: #f0f4f7; /* Fondo gris claro */
+            border-radius: 20px;
+        }
+    
+        *,  
+            ::after,
+            ::before  { margin:0;
+            padding:0;            
+            box-sizing: border-box;
+        }
+    
+        :root {
+            --primary-color: #3b4b6b; /* Azul oscuro para el encabezado */
+            --secondary-color: #4a90e2; /* Azul para el menú */
+            --accent-color: #8cb3d9; /* Azul claro para los detalles */
+            --text-color: #000000; /* Texto negro */
+            --background-color: #f0f4f7; /* Fondo gris claro */
+            --white: #ffffff; /* Blanco puro */
+            --gradient-start: #3b4b6b; /* Degradado de azul oscuro */
+            --gradient-end: #8cb3d9; /* a azul claro */
+        }
+    
+        /* Estilo del header */
+        header {
+            background-image: url(Imagenes/neuro-numero.jpg);
+            height: 500px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--white);
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: right;
+        }
+        section {
+            min-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        /* Estilos del título en el header */
+        header h1 {
+            font-size: 60px;
+            color: black;
+            text-align: center;
+        }
+
+        /* Estilos para el subtítulo en el header */
+        header p {
+            font-size: 70px;
+            margin: 1em 0;
+            text-align: center;
+            color: black;
+        }
+    
+    
+        /* Estilos para el menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: 4px solid var(--accent-color);
+        }
+    
+        /* Estilos de los enlaces en el menú de navegación */
+        nav a {
+            color: var(--white);
+            padding: 4px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-right: 1px solid var(--accent-color);
+            flex-grow: 1;
+            font-weight: bold;
+            font-size: 20;
+            border-radius: 30px;
+        }
+    
+        /* Quitar borde derecho del último enlace en el menú */
+        nav a:last-child {
+            border-right: none;
+        }
+    
+        /* Estilos de hover en los enlaces del menú */
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+    
+        /* Divider en el menú */
+        nav .divider {
+            width: 1px;
+            background-color: var(--accent-color);
+            margin: 0 10px;
+            height: auto;
+        }
+    
+        /* Menú desplegable */
+        .dropdown {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+    
+        /* Contenido del menú desplegable */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        /* Estilos de los enlaces en el menú desplegable */
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+    
+        /* Hover en los enlaces del menú desplegable */
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+    
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    
+        /* Menú secundario (submenú) */
+        .dropdown-subcontent {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 100%;
+            top: 0;
+            transform: translateX(0%);
+        }
+    
+        /* Mostrar submenú al hacer hover en el elemento padre */
+        .dropdown-content .submenu:hover .dropdown-subcontent {
+            display: block;
+        }
+    
+        /* Sombra en los elementos del menú */
+        nav a, .dropdown-content a, .dropdown-subcontent a {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Estilos para los botones en el header */
+        .header-buttons {
+            background-color: white;
+            color: white;
+            padding: 4px 8px; /* Botones más pequeños */
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: 2px solid white;
+            margin-right: 15px; /* Espaciado entre botones */
+            display: inline-block;
+        }
+       
+        /* Hover en los botones del header */
+        .header-button:hover {
+            background-color: #09b5d8;
+            color: black;
+        }
+        .header-content {
+        display: flex;
+        align-items: left;
+    }
+
+    .header-content h1 {
+        margin-right: 20px; /* Espacio entre el título y los botones */
+    }
+    </style>
+    
+<header>
+    <div class="header-container">
+        <div class="header-text">
+        <h1>Neuro-Números</h1></a>
+            <p>Descubriendo el poder de las matemáticas</p>
+        </div>
+    </div>
+</header>
+
+        
+        <!-- Botones de acciones -->
+        <div class="header-buttons">
+            <a href="bienvenida.html" class="header-button">Bienvenida</a>
+            <a href="ayuda.html" class="header-button">Ayuda</a>
+            <a href="testimonios.html" class="header-button">Testimonios</a>
+            <a href="novedades.html" class="header-button">Novedades</a>
+            <a href="blog.html" class="header-button">Blog</a>
+            <a href="mapa-de-sitio.html" class="header-button">Mapa del sitio</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="Neuronumero.html">Inicio</a>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="explorando.html" class="dropbtn">Explorando</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Explorando.html" class="dropbtn-sub">Explorando el autismo</a>
+                    <div class="dropdown-subcontent">
+                        <a href="definicion-diagnostico.html">Definición y Diagnóstico</a>
+                        <a href="signos-sintomas.html">Signos y Síntomas</a>
+                        <a href="mitos-realidades.html">Mitos y Realidades</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="diversidad-neurocognitiva.html" class="dropbtn-sub">Diversidad Neurocognitiva</a>
+                    <div class="dropdown-subcontent">
+                        <a href="concepto-neurodiversidad.html">Concepto de Neurodiversidad</a>
+                        <a href="importancia-inclusion.html">Importancia de la Inclusión</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="vidas-y-vivencias.html" class="dropbtn-sub">Vidas y Vivencias</a>
+                    <div class="dropdown-subcontent">
+                        <a href="historias-vida.html">Historias de Vida</a>
+                        <a href="entrevistas-expertos.html">Entrevista con Expertos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Recursos-educativos.html" class="dropbtn">Recursos educativos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Guias-estudios.html" class="dropbtn-sub">Guías de estudios</a>
+                    <div class="dropdown-subcontent">
+                        <a href="matematicas basicas.html">Matemáticas básicas</a>
+                        <a href="Algebra-y-geometria.html">Álgebra y Geometría</a>
+                        <a href="problemas.html">Problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Consejos.html" class="dropbtn-sub">Consejos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Para-examenes.html">Para exámenes</a>
+                        <a href="Para-reducir-el-estres.html">Para reducir el estrés</a>
+                        <a href="Gestion-tiempo.html">Gestión del tiempo</a>
+                        <a href="Para-educadores.html">Para Educadores</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Recursos-adaptados.html" class="dropbtn-sub">Recursos adaptados</a>
+                    <div class="dropdown-subcontent">
+                        <a href="material-visual.html">Materiales visuales</a>
+                        <a href="material-auditivo.html">Materiales Auditivos</a>
+                        <a href="Herramientas-digitales.html">Herramientas Digitales</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Articulos.html" class="dropbtn-sub">Artículos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Ultimos-avances.html">últimos avances</a>
+                        <a href="Innovacion-en-educacion.html">Innovación en educación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Enseñando-matematicas.html" class="dropbtn">Enseñando matemáticas</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Metodologias-adaptadas" class="dropbtn-sub">Metodologías adaptadas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="visual-thinking.html">Visual thinking</a>
+                        <a href="Aprende-jugando.html">Aprende jugando</a>
+                        <a href="Recursos-manipulativos.html">Recursos manipulativos</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Tecnologias-educativas.html" class="dropbtn-sub">Tecnologías Educativas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Aplicaciones-interactivas.html">Aplicaciones Interactivas</a>
+                        <a href="Software-educativos.html">Software Educativos</a>
+                    </div>
+                </div> 
+                <div class="submenu">
+                    <a href="La-educacion-la-matematicas-y-la-vida.html" class="dropbtn-sub">La educación, las Matemáticas y la vida</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matematicas-en-la-cotidianidad.html">Matemáticas en la cotidianidad</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Juegos.html" class="dropbtn">Juegos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Juegos-educativos" class="dropbtn-sub">Juegos Educativos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matemativas-divertidas.html">Matemáticas Divertidas</a>
+                        <a href="Resolucion-de-problemas.html">Resolución de problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-estrategias.html" class="dropbtn-sub">Juegos de estrategia</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Logica-y-razonamiento.html">Lógica y Razonamiento</a>
+                        <a href="Desarrollo-de-habilidades-matematicas.html">Desarrollo de habilidades Matemáticas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-relajacion.html" class="dropbtn-sub">Juegos de Relajación</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Juegos-sensoriales.html">Juegos sensoriales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="comunidad.html" class="dropbtn">Comunidad</a>
+            <div class="dropdown-content">
+                <a href="foros.html">Foros</a>
+                <a href="grupos-apoyo.html">Grupos de Apoyo</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+
+</body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franja Azul</title>
+    <style>
+        .franja-azul {
+            width: 100%;
+            height: 7cm; /* Altura de la franja */
+            background-color: white; /* Color azul */
+        }
+    </style>
+</head>
+
+    <div class="franja-azul"></div>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <style>
+        /* Estilo general del body */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Estilo de la sección Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Imagen del Hero */
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Estilo del contenido */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: black;
+        }
+
+        /* Estilo del texto principal */
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Estilo del texto secundario */
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Estilo del botón */
+        .hero-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content a:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Imagen de fondo -->
+        <img src="Imagenes/hero-historia.jpg" alt="Hero Image">
+
+        <!-- Contenido del Hero -->
+        <div class="hero-content">
+            <h1></h1>
+        </div>
+    </div>
+</html>
+<section class="two-columns">
+    <style>
+        /* Estilos para la sección de dos columnas */
+    .two-columns {
+        display: flex;
+        flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+        margin: 10px 0; /* Espaciado superior e inferior */
+        padding: 20px;
+        background-color: #f5f5f5; /* Color de fondo suave */
+    }
+    
+    /* Columna de la imagen */
+    .image-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .image-container {
+        max-width: 100%; /* Ancho máximo de la imagen */
+        text-align: center;
+    }
+    
+    .image-container img {
+        max-width: 100%; /* La imagen se adapta al contenedor */
+        height: auto;
+        border-radius: 12px; /* Bordes redondeados */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    }
+    
+    /* Columna de texto */
+    .text-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 20px;
+    }
+    
+    .text-column h2 {
+        font-size: 2rem; /* Tamaño del título */
+        margin-bottom: 20px; /* Espaciado inferior del título */
+        color: #0c7f83; /* Color del texto */
+    }
+    
+    .text-column p {
+        font-size: 1.2rem; /* Tamaño del texto */
+        line-height: 1.6; /* Altura de línea para legibilidad */
+        color: #333; /* Color del texto */
+        text-align: justify;
+    }
+    
+    /* Responsivo para pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .two-columns {
+            flex-direction: column; /* Las columnas se apilan verticalmente */
+        }
+    
+        .image-column, .text-column {
+            flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+            padding: 10px;
+        }
+    }
+    </style>
+        <div class="column image-column">
+            <div class="image-container">
+                <img src="Imagenes/aprender-a-vivir-con-el-autismo.webp" alt="Nuevas Prácticas de Enseñanza" />
+                <figcaption style="color:black">hermana comprende, apoya y quiere a su hermana mayor con autismo.<br>Imagen creada por Maria Camila Campiño</br></figcaption>
+            </div>
+        </div>
+        <div class="column text-column">
+            <h2>Aprender a Vivir con el Autismo: Una Historia de Amor, Desafíos y Descubrimientos</h2>
+            <p>
+                Vivir con una persona con autismo es duro, pero es aún más difícil cuando se han vivido 17 años sin saber que esa persona es autista. Cuando descubrimos que mi hermana era autista, su neuropsicóloga me felicitó, ya que, sin saberlo, fui una gran ayuda para ella. Sin embargo, esa ayuda no siempre fue fácil. Aprendí a convivir con mi hermana sin conocer su diagnóstico. Soy de las pocas personas, por no decir la única, que sabe cómo es ella en realidad. He aprendido cuándo es mejor callar, hablar, hacer chistes, fingir, consolar y muchas cosas más. El hecho de que mi hermana no tenga un conocimiento profundo sobre emociones hizo todo un poco más fácil.
+
+Pero hay días en los que no es tan sencillo como puede parecer en palabras. Hay momentos en los que uno no sabe cómo actuar o qué decir. No se sabe si ella está feliz, triste, enojada, o si su actitud es simplemente la normal, lo que a veces resulta muy incómodo. Pero sigo estando a su lado, y siempre lo estaré.
+
+Algo que siempre le admiro es su inteligencia, y es algo de lo que estoy muy orgullosa. El conocimiento que posee es asombroso; es una máquina en matemáticas, nada la supera. Domina una de las lenguas más difíciles, el mandarín, y conoce datos súper extraños que comparte en momentos inesperados del día, pero que siempre nos hacen reír. Aunque fue duro mientras crecía, ya que me comparaba mucho con ella, ahora a mis 18 años agradezco no haber querido ser como ella. Me gusta mi forma más libre de ver la vida. Esa es una de las mayores diferencias entre una persona con autismo y una persona sin él. Mientras a mí no me importa que me cambien los planes, improvisar o probar cosas nuevas, el ruido, salir con amigos, socializar o reírme de los chistes más tontos, ella necesita todo lo opuesto. No se le pueden cambiar los planes, las rutas o los lugares que frecuenta, prefiere el silencio, no salir, odia socializar y no entiende los chistes.
+
+Ella tiene actitudes muy únicas e inusuales. Siempre guarda su cívica y su dinero en su bolsillo derecho, elige siempre números pares, se peina igual cada día y usa la misma ropa en los mismos días de la semana. En el metro, siempre es la segunda en la fila del lado derecho y duerme en la misma posición cada noche. No le gustan los cambios, por lo que siempre hace y usa lo mismo. Tiene su propio vaso, plato y cuchara. Cuando salimos a comer, siempre pide la misma comida, nunca varía de platillo. En una cafetería, se molesta si la mesa que siempre usamos está ocupada.
+
+La convivencia no siempre es fácil. Tenemos gustos muy diferentes, pero no me refiero solo a eso cuando hablo de convivir. Muchas de las cosas que hago es porque les tomé gusto gracias a mi hermana, pero hay otras que son difíciles. Nuestras personalidades chocan a menudo. Ella tiene un temperamento muy fuerte, y supongo que mientras yo crecía, aprendí a controlar lo que digo (aunque a veces no puedo), lo que hago y trato de que el resto de nuestra familia no la moleste mucho. Prefiero ser yo quien reciba las cosas para evitar que ella se sienta mal por no entender muchas cosas de la vida y de los sentimientos.
+
+Pero, a pesar de todo, no me arrepiento de vivir con ella. No me arrepiento de decir que mi hermana es una persona con autismo y que estoy orgullosa de ella, y siempre lo estaré.
+
+            </p>
+        </div>
+    </section>
+    <section class="two-columns">
+        <style>
+            /* Estilos para la sección de dos columnas */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+            margin: 10px 0; /* Espaciado superior e inferior */
+            padding: 20px;
+            background-color: #f5f5f5; /* Color de fondo suave */
+        }
+        
+        /* Columna de la imagen */
+        .image-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-container {
+            max-width: 100%; /* Ancho máximo de la imagen */
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%; /* La imagen se adapta al contenedor */
+            height: auto;
+            border-radius: 12px; /* Bordes redondeados */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+        }
+        
+        /* Columna de texto */
+        .text-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 20px;
+        }
+        
+        .text-column h2 {
+            font-size: 2rem; /* Tamaño del título */
+            margin-bottom: 20px; /* Espaciado inferior del título */
+            color: #0c7f83; /* Color del texto */
+        }
+        
+        .text-column p {
+            font-size: 1.2rem; /* Tamaño del texto */
+            line-height: 1.6; /* Altura de línea para legibilidad */
+            color: #333; /* Color del texto */
+            text-align: justify;
+        }
+
+        /* Responsivo para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column; /* Las columnas se apilan verticalmente */
+            }
+        
+            .image-column, .text-column {
+                flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+                padding: 10px;
+            }
+        }
+        </style>
+            <div class="column image-column">
+                <div class="image-container">
+                    <img src="Imagenes/madre-e-hija.webp" alt="Nuevas Prácticas de Enseñanza" />
+                    <figcaption style="color:black">Madre cuidando a su hija autista.<br>Imagen creada con ayuda de IA</br></figcaption>
+                </div>
+            </div>
+            <div class="column text-column">
+                <h2>Mi Viaje como Madre de una Hija Autista</h2>
+                <p>
+                    Soy la mamá de una persona con autismo y no es fácil. Apenas ahora puedo entender el porqué de sus actitudes cuando era niña: el porqué de su silencio, de su ausencia, de su soledad, de su mirada profunda sin pronunciar una sola palabra, y de sus horas interminables observando sus pies. Ahora entiendo por qué no le gustaban los zapatos, ni que le tocaran el cabello; por qué no le gustaba la gente, ni el ruido, ni las fiestas, ni los payasos, ni nada de lo que solía gustarle a los otros niños. Siempre fue diferente, siempre amó su soledad desde niña. Y lo que sí me encanta es que siempre amó mi compañía.
+
+Sentí que el mundo tambaleaba a mi alrededor cuando, después de pasar por muchos psicólogos, psiquiatras, medicamentos, e incluso sacerdotes, una buena profesional, una neuropsicóloga, me dijo: “Señora, su hija, su hija ya mujer, es autista. Fue una niña autista, y yo, su mamá, nunca lo supe, no estuve ahí para acompañarla.” Y el sentimiento de culpa me embargó, y creo que aún no lo supero. Odié a todos los médicos que nunca me dieron un diagnóstico adecuado. Y me consolé pensando: “Si no lo supieron ellos, que son profesionales en el tema, ¿cómo lo iba a saber yo?”.
+
+La gente suele opinar; algunos médicos y personas decían: “Es una niña malcriada… es rebelde.” Qué fácil es opinar sobre lo desconocido… Ha sido duro porque fue como empezar desde cero para entender a mi hija, no para conocerla, porque toda la vida fue así, sino para aprender sobre el tema. Y lo más difícil ha sido perdonarme a mí misma por el hecho de que mi hija autista tuvo que enfrentar todo sola, asumir su condición sin que nadie la entendiera; solo ella sabía que era diferente, pero estoy segura de que en ese momento no sabía por qué.
+
+He pasado días enteros buscando en internet cómo ayudar a mi hija autista; también he llorado y he sentido la angustia de la incomprensión de la sociedad e incluso de la misma familia. Daría todo lo que soy para que ella esté siempre bien, que coma bien, que duerma bien y, sobre todo, que sea feliz; que brille con luz propia y sienta que, a pesar de su condición, encaja y es aceptada en una sociedad en la que el autismo sigue siendo algo nuevo.
+
+Lo único que quiero es protegerla, y sueño con que cuando yo ya no esté, el mundo haya avanzado lo suficiente para comprenderla a ella y a todos los que comparten su condición, así como se les obliga a ellos a comprender el mundo en el que viven. Soy madre de una hija con autismo, y no existe mayor felicidad para mí que ver sus logros, que son mis grandes satisfacciones. Lo que he aprendido con su condición es que el mundo es el mismo para todos; solo que ellos lo ven con ojos diferentes. Es su mundo, pero no menos valioso que el de los demás. Solo debemos aprender a aceptar que son diferentes, pero merecen ser felices, aceptados y amados. Soy una mamá feliz de mi hija autista.
+    
+                </p>
+            </div>
+        </section>
+    <footer>
+        <style>
+            footer {
+                background-color: #3b4b6b;
+                color: white;
+                padding: 20px 20px;
+                box-sizing: border-box;
+                height: 40vh;
+                border-radius: 20px;
+                margin: 10px
+            }
+            
+            .footer-container {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .footer-column {
+                flex: 1;
+                margin: 10px;
+                min-width: 150px;
+            }
+            
+            .footer-column h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .footer-column ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            
+            .footer-column ul li {
+                margin-bottom: 10px;
+            }
+            
+            .footer-column ul li a {
+                color: white;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+            
+            .footer-column ul li a:hover {
+                text-decoration: underline;
+            }
+            
+            .footer-column a {
+                color: white;
+                text-decoration: none;
+            }
+            
+            .footer-column a:hover {
+                text-decoration: underline;
+            }
+        </style>
+            <div class="footer-container">
+                <!-- Primera Columna: Logo -->
+                <div class="footer-column">
+                    <img src="Imagenes/neuro-numero.jpg" alt="" style="height: 150px;">
+                </div>
+                
+                <!-- Segunda Columna: Políticas de Privacidad -->
+                <div class="footer-column">
+                    <h3>Políticas de Privacidad</h3>
+                    <ul>
+                        <li><a href="politica-privacidad.html">Privacidad</a></li>
+                        <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                        <li><a href="cookies.html">Política de Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Tercera Columna: Redes Sociales -->
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                    <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                    <a href="https://x.com" target="_blank">X</a>
+                </div>
+                
+                <!-- Cuarta Columna: Juegos de Matemáticas -->
+                <div class="footer-column">
+                    <h3>Juegos de Matemáticas</h3>
+                    <ul>
+                        <li><a href="juego1.html">Juego 1</a></li>
+                        <li><a href="juego2.html">Juego 2</a></li>
+                        <li><a href="juego3.html">Juego 3</a></li>
+                        <li><a href="juego4.html">Juego 4</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quinta Columna: Comunidad -->
+                <div class="footer-column">
+                    <h3>Comunidad</h3>
+                    <ul>
+                        <li><a href="foros.html">Foros</a></li>
+                        <li><a href="grupos-apoyo.html">Grupos de Apoyo</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="mapa-de-sitio.html">Mapa del Sitio</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </Body>

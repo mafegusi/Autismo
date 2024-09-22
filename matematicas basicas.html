@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Números</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: calibri "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-align: center;
+            background-color: #f0f4f7; /* Fondo gris claro */
+            border-radius: 20px;
+        }
+    
+        *,  
+            ::after,
+            ::before  { margin:0;
+            padding:0;            
+            box-sizing: border-box;
+        }
+    
+        :root {
+            --primary-color: #3b4b6b; /* Azul oscuro para el encabezado */
+            --secondary-color: #4a90e2; /* Azul para el menú */
+            --accent-color: #8cb3d9; /* Azul claro para los detalles */
+            --text-color: #000000; /* Texto negro */
+            --background-color: #f0f4f7; /* Fondo gris claro */
+            --white: #ffffff; /* Blanco puro */
+            --gradient-start: #3b4b6b; /* Degradado de azul oscuro */
+            --gradient-end: #8cb3d9; /* a azul claro */
+        }
+    
+        /* Estilo del header */
+        header {
+            background-image: url(Imagenes/neuro-numero.jpg);
+            height: 500px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--white);
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: right;
+        }
+        section {
+            min-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        /* Estilos del título en el header */
+        header h1 {
+            font-size: 60px;
+            color: black;
+            text-align: cente
+        }
+
+        /* Estilos para el subtítulo en el header */
+        header p {
+            font-size: 70px;
+            margin: 1em 0;
+            text-align: center;
+            color: black;
+        }
+    
+    
+        /* Estilos para el menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: 4px solid var(--accent-color);
+        }
+    
+        /* Estilos de los enlaces en el menú de navegación */
+        nav a {
+            color: var(--white);
+            padding: 4px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-right: 1px solid var(--accent-color);
+            flex-grow: 1;
+            font-weight: bold;
+            font-size: 20;
+            border-radius: 30px;
+        }
+    
+        /* Quitar borde derecho del último enlace en el menú */
+        nav a:last-child {
+            border-right: none;
+        }
+    
+        /* Estilos de hover en los enlaces del menú */
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+    
+        /* Divider en el menú */
+        nav .divider {
+            width: 1px;
+            background-color: var(--accent-color);
+            margin: 0 10px;
+            height: auto;
+        }
+    
+        /* Menú desplegable */
+        .dropdown {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+    
+        /* Contenido del menú desplegable */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        /* Estilos de los enlaces en el menú desplegable */
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+    
+        /* Hover en los enlaces del menú desplegable */
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+    
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    
+        /* Menú secundario (submenú) */
+        .dropdown-subcontent {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 100%;
+            top: 0;
+            transform: translateX(0%);
+        }
+    
+        /* Mostrar submenú al hacer hover en el elemento padre */
+        .dropdown-content .submenu:hover .dropdown-subcontent {
+            display: block;
+        }
+    
+        /* Sombra en los elementos del menú */
+        nav a, .dropdown-content a, .dropdown-subcontent a {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Estilos para los botones en el header */
+        .header-buttons {
+            background-color: white;
+            color: white;
+            padding: 4px 8px; /* Botones más pequeños */
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: 2px solid white;
+            margin-right: 15px; /* Espaciado entre botones */
+            display: inline-block;
+        }
+       
+        /* Hover en los botones del header */
+        .header-button:hover {
+            background-color: #09b5d8;
+            color: black;
+        }
+        .header-content {
+        display: flex;
+        align-items: left;
+    }
+
+    .header-content h1 {
+        margin-right: 20px; /* Espacio entre el título y los botones */
+    }
+    </style>
+    
+<header>
+    <div class="header-container">
+        <div class="header-text">
+        <h1>Neuro-Números</h1></a>
+            <p>Descubriendo el poder de las matemáticas</p>
+        </div>
+    </div>
+</header>
+
+        
+        <!-- Botones de acciones -->
+        <div class="header-buttons">
+            <a href="bienvenida.html" class="header-button">Bienvenida</a>
+            <a href="ayuda.html" class="header-button">Ayuda</a>
+            <a href="historias-vida.html" class="header-button">Testimonios</a>
+            <a href="novedades.html" class="header-button">Novedades</a>
+            <a href="blog.html" class="header-button">Blog</a>
+            <a href="mapa-de-sitio.html" class="header-button">Mapa del sitio</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="Neuronumero.html">Inicio</a>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="explorando.html" class="dropbtn">Explorando</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Explorando.html" class="dropbtn-sub">Explorando el autismo</a>
+                    <div class="dropdown-subcontent">
+                        <a href="definicion-diagnostico.html">Definición y Diagnóstico</a>
+                        <a href="signos-sintomas.html">Signos y Síntomas</a>
+                        <a href="mitos-realidades.html">Mitos y Realidades</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="diversidad-neurocognitiva.html" class="dropbtn-sub">Diversidad Neurocognitiva</a>
+                    <div class="dropdown-subcontent">
+                        <a href="concepto-neurodiversidad.html">Concepto de Neurodiversidad</a>
+                        <a href="importancia-inclusion.html">Importancia de la Inclusión</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="vidas-y-vivencias.html" class="dropbtn-sub">Vidas y Vivencias</a>
+                    <div class="dropdown-subcontent">
+                        <a href="historias-vida.html">Historias de Vida</a>
+                        <a href="entrevistas-expertos.html">Entrevista con Expertos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Recursos-educativos.html" class="dropbtn">Recursos educativos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Guias-estudios.html" class="dropbtn-sub">Guías de estudios</a>
+                    <div class="dropdown-subcontent">
+                        <a href="matematicas basicas.html">Matemáticas básicas</a>
+                        <a href="Algebra-y-geometria.html">Álgebra y Geometría</a>
+                        <a href="problemas.html">Problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Consejos.html" class="dropbtn-sub">Consejos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Para-examenes.html">Para exámenes</a>
+                        <a href="Para-reducir-el-estres.html">Para reducir el estrés</a>
+                        <a href="Gestion-tiempo.html">Gestión del tiempo</a>
+                        <a href="Para-educadores.html">Para Educadores</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Recursos-adaptados.html" class="dropbtn-sub">Recursos adaptados</a>
+                    <div class="dropdown-subcontent">
+                        <a href="material-visual.html">Materiales visuales</a>
+                        <a href="material-auditivo.html">Materiales Auditivos</a>
+                        <a href="Herramientas-digitales.html">Herramientas Digitales</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Articulos.html" class="dropbtn-sub">Artículos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Ultimos-avances.html">últimos avances</a>
+                        <a href="Innovacion-en-educacion.html">Innovación en educación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Enseñando-matematicas.html" class="dropbtn">Enseñando matemáticas</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Metodologias-adaptadas" class="dropbtn-sub">Metodologías adaptadas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="visual-thinking.html">Visual thinking</a>
+                        <a href="Aprende-jugando.html">Aprende jugando</a>
+                        <a href="Recursos-manipulativos.html">Recursos manipulativos</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Tecnologias-educativas.html" class="dropbtn-sub">Tecnologías Educativas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Aplicaciones-interactivas.html">Aplicaciones Interactivas</a>
+                        <a href="Software-educativos.html">Software Educativos</a>
+                    </div>
+                </div> 
+                <div class="submenu">
+                    <a href="La-educacion-la-matematicas-y-la-vida.html" class="dropbtn-sub">La educación, las Matemáticas y la vida</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matematicas-en-la-cotidianidad.html">Matemáticas en la cotidianidad</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Juegos.html" class="dropbtn">Juegos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Juegos-educativos" class="dropbtn-sub">Juegos Educativos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matemativas-divertidas.html">Matemáticas Divertidas</a>
+                        <a href="Resolucion-de-problemas.html">Resolución de problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-estrategias.html" class="dropbtn-sub">Juegos de estrategia</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Logica-y-razonamiento.html">Lógica y Razonamiento</a>
+                        <a href="Desarrollo-de-habilidades-matematicas.html">Desarrollo de habilidades Matemáticas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-relajacion.html" class="dropbtn-sub">Juegos de Relajación</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Juegos-sensoriales.html">Juegos sensoriales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="comunidad.html" class="dropbtn">Comunidad</a>
+            <div class="dropdown-content">
+                <a href="foros.html">Foros</a>
+                <a href="grupos-apoyo.html">Grupos de Apoyo</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franja Azul</title>
+    <style>
+        .franja-azul {
+            width: 100%;
+            height: 7cm; /* Altura de la franja */
+            background-color: white; /* Color azul */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="franja-azul"></div>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <style>
+        /* Estilo general del body */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            z-index: 1;
+        }
+        
+        /* Estilo de la sección Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Imagen del Hero */
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            
+        }
+
+        /* Estilo del contenido */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        /* Estilo del texto principal */
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        /* Estilo del texto secundario */
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content a:hover {
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Imagen de fondo -->
+        <img src="Imagenes/hear-guias.jpg" alt="Hero Image">
+
+        <!-- Contenido del Hero -->
+        <div class="hero-content">
+            <h1>Matemáticas basicas.</h1>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección de 4 Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .link-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .link-section h2 {
+            color: #3b4b6b;
+            text-align: center;
+        }
+        .link-section ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: justify;
+        }
+        .link-section ul li {
+            margin: 10px 0;
+        }
+        .link-section ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+        }
+        .link-section ul li a:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="link-section">
+        <h2>Guías Matemáticas Basicas</h2>
+        <ul>
+            <li><a href="los-numeros.html">Los números y la relación entre las cantidades</a></li>
+            <li><a href="simbolos.html" >Introducción a los símbolos y sus significados</a></li>
+            <li><a href="operaciones.html">Operaciones aritméticas </a></li>
+            <li><a href="vida.html">Las operaciones matemáticas en la vida cotidiana</a></li>
+        </ul>
+    </div>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Fotos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .photo-section {
+            width: 90%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-section img:hover {
+            transform: scale(1.05);
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: #8ca4f1;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #8ca4f1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Galería de Fotos</h1>
+
+    <div class="photo-section">
+        <div>
+            <img src="imagenes/guia2.jpg" alt="Ejemplo práctico de matemáticas">
+            <div class="caption">ficha sacada de blog Mama de Teo</div>
+            <a href="https://static1.squarespace.com/static/5bacdf61348cd91d3a5b85d8/t/6283edec21cca66a6764e4ce/1652813292877/plantilla-sumas-manipulativas.pdff" class="download-button" download>Descargar PDF</a>
+        </div>
+        <div>
+            <img src="imagenes/Captura de pantalla 2024-09-15 233606.png" alt="Niños aprendiendo">
+            <div class="caption">ficha sacada de blog Mama de Teo</div>
+            <a href="https://static1.squarespace.com/static/5bacdf61348cd91d3a5b85d8/t/613546d5d7a108794f3e6e06/1630881493555/multiplicacion-estrategias-mamadeteo.pdf" class="download-button" download>Descargar PDF</a>
+        </div>
+        <div>
+            <img src="imagenes/Captura de pantalla 2024-09-15 234100.png" alt="Educación interactiva">
+            <div class="caption">ficha sacada de blog Mama de Teo</div>
+            <a href="https://static1.squarespace.com/static/5bacdf61348cd91d3a5b85d8/t/64df9a84903cfd5973882bf1/1692375690749/UDC-fichas-espana-mamadeteo.pdff" class="download-button" download>Descargar PDF</a>
+        </div>
+    </div>
+</html>
+<footer>
+    <style>
+        footer {
+            background-color: #3b4b6b;
+            color: white;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            height: 40vh;
+            border-radius: 20px;
+            margin: 10px
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 1;
+            margin: 10px;
+            min-width: 150px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            text-decoration: underline;
+        }
+    </style>
+        <div class="footer-container">
+            <!-- Primera Columna: Logo -->
+            <div class="footer-column">
+                <img src="Imagenes/neuro-numero.jpg" alt="" style="height: 150px;">
+            </div>
+            
+            <!-- Segunda Columna: Políticas de Privacidad -->
+            <div class="footer-column">
+                <h3>Políticas de Privacidad</h3>
+                <ul>
+                    <li><a href="politica-privacidad.html">Privacidad</a></li>
+                    <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                    <li><a href="cookies.html">Política de Cookies</a></li>
+                </ul>
+            </div>
+            
+            <!-- Tercera Columna: Redes Sociales -->
+            <div class="footer-column">
+                <h3>Síguenos</h3>
+                <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                <a href="https://x.com" target="_blank">X</a>
+            </div>
+            
+            <!-- Cuarta Columna: Juegos de Matemáticas -->
+            <div class="footer-column">
+                <h3>Juegos de Matemáticas</h3>
+                <ul>
+                    <li><a href="juego1.html">Juego 1</a></li>
+                    <li><a href="juego2.html">Juego 2</a></li>
+                    <li><a href="juego3.html">Juego 3</a></li>
+                    <li><a href="juego4.html">Juego 4</a></li>
+                </ul>
+            </div>
+            
+            <!-- Quinta Columna: Comunidad -->
+            <div class="footer-column">
+                <h3>Comunidad</h3>
+                <ul>
+                    <li><a href="foros.html">Foros</a></li>
+                    <li><a href="grupos-apoyo.html">Grupos de Apoyo</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="mapa-de-sitio.html">Mapa del Sitio</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Números</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: calibri "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-align: center;
+            background-color: #f0f4f7; /* Fondo gris claro */
+            border-radius: 20px;
+        }
+    
+        *,  
+            ::after,
+            ::before  { margin:0;
+            padding:0;            
+            box-sizing: border-box;
+        }
+    
+        :root {
+            --primary-color: #3b4b6b; /* Azul oscuro para el encabezado */
+            --secondary-color: #4a90e2; /* Azul para el menú */
+            --accent-color: #8cb3d9; /* Azul claro para los detalles */
+            --text-color: #000000; /* Texto negro */
+            --background-color: #f0f4f7; /* Fondo gris claro */
+            --white: #ffffff; /* Blanco puro */
+            --gradient-start: #3b4b6b; /* Degradado de azul oscuro */
+            --gradient-end: #8cb3d9; /* a azul claro */
+        }
+    
+        /* Estilo del header */
+        header {
+            background-image: url(Imagenes/neuro-numero.jpg);
+            height: 500px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--white);
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: right;
+        }
+        section {
+            min-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        /* Estilos del título en el header */
+        header h1 {
+            font-size: 60px;
+            color: black;
+            text-align: cente
+        }
+
+        /* Estilos para el subtítulo en el header */
+        header p {
+            font-size: 70px;
+            margin: 1em 0;
+            text-align: center;
+            color: black;
+        }
+    
+    
+        /* Estilos para el menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-bottom: 4px solid var(--accent-color);
+        }
+    
+        /* Estilos de los enlaces en el menú de navegación */
+        nav a {
+            color: var(--white);
+            padding: 4px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-right: 1px solid var(--accent-color);
+            flex-grow: 1;
+            font-weight: bold;
+            font-size: 20;
+            border-radius: 30px;
+        }
+    
+        /* Quitar borde derecho del último enlace en el menú */
+        nav a:last-child {
+            border-right: none;
+        }
+    
+        /* Estilos de hover en los enlaces del menú */
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+    
+        /* Divider en el menú */
+        nav .divider {
+            width: 1px;
+            background-color: var(--accent-color);
+            margin: 0 10px;
+            height: auto;
+        }
+    
+        /* Menú desplegable */
+        .dropdown {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+    
+        /* Contenido del menú desplegable */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        /* Estilos de los enlaces en el menú desplegable */
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+    
+        /* Hover en los enlaces del menú desplegable */
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+    
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    
+        /* Menú secundario (submenú) */
+        .dropdown-subcontent {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 100%;
+            top: 0;
+            transform: translateX(0%);
+        }
+    
+        /* Mostrar submenú al hacer hover en el elemento padre */
+        .dropdown-content .submenu:hover .dropdown-subcontent {
+            display: block;
+        }
+    
+        /* Sombra en los elementos del menú */
+        nav a, .dropdown-content a, .dropdown-subcontent a {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Estilos para los botones en el header */
+        .header-buttons {
+            background-color: white;
+            color: white;
+            padding: 4px 8px; /* Botones más pequeños */
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: 2px solid white;
+            margin-right: 15px; /* Espaciado entre botones */
+            display: inline-block;
+        }
+       
+        /* Hover en los botones del header */
+        .header-button:hover {
+            background-color: #09b5d8;
+            color: black;
+        }
+        .header-content {
+        display: flex;
+        align-items: left;
+    }
+
+    .header-content h1 {
+        margin-right: 20px; /* Espacio entre el título y los botones */
+    }
+    </style>
+    
+<header>
+    <div class="header-container">
+        <div class="header-text">
+        <h1>Neuro-Números</h1></a>
+            <p>Descubriendo el poder de las matemáticas</p>
+        </div>
+    </div>
+</header>
+
+        
+        <!-- Botones de acciones -->
+        <div class="header-buttons">
+            <a href="bienvenida.html" class="header-button">Bienvenida</a>
+            <a href="ayuda.html" class="header-button">Ayuda</a>
+            <a href="historias-vida.html" class="header-button">Testimonios</a>
+            <a href="novedades.html" class="header-button">Novedades</a>
+            <a href="blog.html" class="header-button">Blog</a>
+            <a href="mapa-de-sitio.html" class="header-button">Mapa del sitio</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="explorando.html" class="dropbtn">Explorando</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Explorando.html" class="dropbtn-sub">Explorando el autismo</a>
+                    <div class="dropdown-subcontent">
+                        <a href="definicion-diagnostico.html">Definición y Diagnóstico</a>
+                        <a href="signos-sintomas.html">Signos y Síntomas</a>
+                        <a href="mitos-realidades.html">Mitos y Realidades</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="diversidad-neurocognitiva.html" class="dropbtn-sub">Diversidad Neurocognitiva</a>
+                    <div class="dropdown-subcontent">
+                        <a href="concepto-neurodiversidad.html">Concepto de Neurodiversidad</a>
+                        <a href="importancia-inclusion.html">Importancia de la Inclusión</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="vidas-y-vivencias.html" class="dropbtn-sub">Vidas y Vivencias</a>
+                    <div class="dropdown-subcontent">
+                        <a href="historias-vida.html">Historias de Vida</a>
+                        <a href="entrevistas-expertos.html">Entrevista con Expertos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Recursos-educativos.html" class="dropbtn">Recursos educativos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Guias-estudios.html" class="dropbtn-sub">Guías de estudios</a>
+                    <div class="dropdown-subcontent">
+                        <a href="matematicas basicas.html">Matemáticas básicas</a>
+                        <a href="Algebra-y-geometria.html">Álgebra y Geometría</a>
+                        <a href="problemas.html">Problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Consejos.html" class="dropbtn-sub">Consejos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Para-examenes.html">Para exámenes</a>
+                        <a href="Para-reducir-el-estres.html">Para reducir el estrés</a>
+                        <a href="Gestion-tiempo.html">Gestión del tiempo</a>
+                        <a href="Para-educadores.html">Para Educadores</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Recursos-adaptados.html" class="dropbtn-sub">Recursos adaptados</a>
+                    <div class="dropdown-subcontent">
+                        <a href="material-visual.html">Materiales visuales</a>
+                        <a href="material-auditivo.html">Materiales Auditivos</a>
+                        <a href="Herramientas-digitales.html">Herramientas Digitales</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Articulos.html" class="dropbtn-sub">Artículos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Ultimos-avances.html">últimos avances</a>
+                        <a href="Innovacion-en-educacion.html">Innovación en educación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Enseñando-matematicas.html" class="dropbtn">Enseñando matemáticas</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Metodologias-adaptadas" class="dropbtn-sub">Metodologías adaptadas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="visual-thinking.html">Visual thinking</a>
+                        <a href="Aprende-jugando.html">Aprende jugando</a>
+                        <a href="Recursos-manipulativos.html">Recursos manipulativos</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Tecnologias-educativas.html" class="dropbtn-sub">Tecnologías Educativas</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Aplicaciones-interactivas.html">Aplicaciones Interactivas</a>
+                        <a href="Software-educativos.html">Software Educativos</a>
+                    </div>
+                </div> 
+                <div class="submenu">
+                    <a href="La-educacion-la-matematicas-y-la-vida.html" class="dropbtn-sub">La educación, las Matemáticas y la vida</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matematicas-en-la-cotidianidad.html">Matemáticas en la cotidianidad</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="Juegos.html" class="dropbtn">Juegos</a>
+            <div class="dropdown-content">
+                <div class="submenu">
+                    <a href="Juegos-educativos" class="dropbtn-sub">Juegos Educativos</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Matemativas-divertidas.html">Matemáticas Divertidas</a>
+                        <a href="Resolucion-de-problemas.html">Resolución de problemas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-estrategias.html" class="dropbtn-sub">Juegos de estrategia</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Logica-y-razonamiento.html">Lógica y Razonamiento</a>
+                        <a href="Desarrollo-de-habilidades-matematicas.html">Desarrollo de habilidades Matemáticas</a>
+                    </div>
+                </div>
+                <div class="submenu">
+                    <a href="Juegos-de-relajacion.html" class="dropbtn-sub">Juegos de Relajación</a>
+                    <div class="dropdown-subcontent">
+                        <a href="Juegos-sensoriales.html">Juegos sensoriales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="dropdown">
+            <a href="comunidad.html" class="dropbtn">Comunidad</a>
+            <div class="dropdown-content">
+                <a href="foros.html">Foros</a>
+                <a href="grupos-apoyo.html">Grupos de Apoyo</a>
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+    </nav>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franja Azul</title>
+    <style>
+        .franja-azul {
+            width: 100%;
+            height: 7cm; /* Altura de la franja */
+            background-color: white; /* Color azul */
+        }
+    </style>
+</head>
+
+    <div class="franja-azul"></div>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <style>
+        /* Estilo general del body */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Estilo de la sección Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Imagen del Hero */
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Estilo del contenido */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: black;
+        }
+
+        /* Estilo del texto principal */
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Estilo del texto secundario */
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Estilo del botón */
+        .hero-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content a:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Imagen de fondo -->
+        <img src="Imagenes/hero-estres.webp" alt="Hero Image">
+
+        <!-- Contenido del Hero -->
+        <div class="hero-content">
+            <h1>Ejercicios de Relajación</h1>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección de Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .text-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-section h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .text-section p {
+            font-size: 18px;
+            color: #666;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección de solo texto -->
+    <div class="text-section">
+        <h2>Consejos para reducir el estrés en personas con autismo</h2>
+        <p>
+            Las crisis de estrés o ansiedad en niños con espectro autista son respuestas emocionales intensas que pueden desencadenarse de manera inesperada ante ciertos estímulos. Estas situaciones pueden surgir debido a cambios en la rutina, sonidos fuertes, dificultades para procesar información, no poder resolver un problema, o al interactuar con personas desconocidas. Como resultado, pueden verse afectadas su conducta y su interacción con el entorno.
+        </p>
+    </div>
+</html>
+<section class="two-columns">
+    <style>
+        /* Estilos para la sección de dos columnas */
+    .two-columns {
+        display: flex;
+        flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+        margin: 0px 0; /* Espaciado superior e inferior */
+        padding: 20px;
+        background-color: #f5f5f5; /* Color de fondo suave */
+    }
+    
+    /* Columna de la imagen */
+    .image-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: smaller;
+    }
+    
+    .image-container {
+        max-width: 70%; /* Ancho máximo de la imagen */
+        text-align: center;
+    }
+    
+    .image-container img {
+        max-width: 100%; /* La imagen se adapta al contenedor */
+        height: auto;
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    }
+    
+    /* Columna de texto */
+    .text-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 20px;
+    }
+    
+    .text-column h2 {
+        font-size: 2rem; /* Tamaño del título */
+        margin-bottom: 10px; /* Espaciado inferior del título */
+        color: #0c7f83; /* Color del texto */
+    }
+    .text-column h3 {
+        font-size: 1.5rem; /* Tamaño del título */
+        margin-bottom: 20px; /* Espaciado inferior del título */
+        color: #0c7f83; /* Color del texto */
+        text-align: left;
+    }
+    .text-column p {
+        font-size: 1.2rem; /* Tamaño del texto */
+        line-height: 1.6; /* Altura de línea para legibilidad */
+        color: #333; /* Color del texto */
+        text-align: justify;
+    }
+    
+    /* Responsivo para pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .two-columns {
+            flex-direction: column; /* Las columnas se apilan verticalmente */
+        }
+    
+        .image-column, .text-column {
+            flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+            padding: 10px;
+        }
+    }
+    </style>
+        <div class="column image-column">
+            <div class="image-container">
+                <img src="Imagenes/Relajacion.webp" alt="Nuevas Prácticas de Enseñanza" />
+                <figcaption style="color: black;">Imagen creada con ayuda de IA</figcaption>
+            </div>
+        </div>
+        <div class="column text-column">
+            <h2> Actividades de autorregulación para niños con autismo</h2>
+            <p>A continuación, te presentamos algunas técnicas de relajación diseñadas para ayudar a los niños autistas a manejar la ansiedad o el estrés: </p>
+            <h3>⭐Actividades sensoriales</h3>
+            <p>
+                Las actividades sensoriales ofrecen una forma agradable y relajante para que las personas con autismo se calmen. Puedes crear un espacio sensorial en casa o en el aula, donde las personas puedan experimentar diferentes texturas, colores y sonidos. Algunas ideas incluyen mesas de arena, cojines con texturas variadas, masajes con pelotas sensoriales, o juegos con agua.
+            </p>
+        </div>
+    </section>
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección de Dos Columnas</title>
+    <style>
+        /* Estilos para la sección de dos columnas */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+            margin: 0px 0; /* Espaciado superior e inferior */
+            padding: 20px;
+            background-color: #f5f5f5; /* Color de fondo suave */
+        }
+        
+        /* Columna de la imagen */
+        .image-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: smaller;
+        }
+        
+        .image-container {
+            max-width: 70%; /* Ancho máximo de la imagen */
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%; /* La imagen se adapta al contenedor */
+            height: auto;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+        }
+        
+        /* Columna de texto */
+        .text-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 20px;
+        }
+        
+        .text-column h2 {
+            font-size: 2rem; /* Tamaño del título */
+            margin-bottom: 10px; /* Espaciado inferior del título */
+            color: #0c7f83; /* Color del texto */
+        }
+        .text-column h3 {
+            font-size: 1.5rem; /* Tamaño del título */
+            margin-bottom: 0px; /* Espaciado inferior del título */
+            color: #0c7f83; /* Color del texto */
+        }
+        .text-column p {
+            font-size: 1.2rem; /* Tamaño del texto */
+            line-height: 1.6; /* Altura de línea para legibilidad */
+            color: #333; /* Color del texto */
+            text-align: justify;
+        }
+        
+        /* Responsivo para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column; /* Las columnas se apilan verticalmente */
+            }
+        
+            .image-column, .text-column {
+                flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección de dos columnas -->
+    <section class="two-columns">
+        <!-- Columna de texto -->
+        <div class="text-column">
+            <h3>⭐ Masajes</h3> <p> Aplicar una presión firme en las extremidades, como las manos, espalda, hombros, brazos y piernas, puede estimular una sensación de seguridad. Usa una almohada firme o masajea suavemente con aceites o esencias florales.
+            </p>
+            <p>
+                Masajes de compresión, Aplicar una presión firme en las extremidades, como las manos, espalda, hombros, brazos y piernas, puede estimular una sensación de seguridad. Usa una almohada firme o masajea suavemente con aceites o esencias florales.
+                También puedes usar Masajes de estiramiento, Estira suavemente los brazos, piernas, cuello y espalda, manteniendo cada estiramiento durante unos segundos antes de soltar lentamente. Este método mejora la flexibilidad y libera la tensión muscular.
+                Antes de aplicar este método, asegúrate de que la persona esté cómodo con el contacto físico, ya que algunas personas con autismo pueden evitar ser tocados, y en esos casos, los masajes no serían una opción adecuada.
+              </p>
+        </div>
+        
+        <!-- Columna de imagen -->
+        <div class="image-column">
+            <div class="image-container">
+                <img src="Imagenes/masaje.webp" alt="Niño realizando actividad sensorial">
+                <figcaption style="color: black;">Imagen creada con ayuda de IA</figcaption>
+            </div>
+        </div>
+    </section>
+</html>
+<section class="two-columns">
+    <style>
+        /* Estilos para la sección de dos columnas */
+    .two-columns {
+        display: flex;
+        flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+        margin: 0px 0; /* Espaciado superior e inferior */
+        padding: 20px;
+        background-color: #f5f5f5; /* Color de fondo suave */
+    }
+    
+    /* Columna de la imagen */
+    .image-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: smaller;
+    }
+    
+    .image-container {
+        max-width: 70%; /* Ancho máximo de la imagen */
+        text-align: center;
+    }
+    
+    .image-container img {
+        max-width: 100%; /* La imagen se adapta al contenedor */
+        height: auto;
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    }
+    
+    /* Columna de texto */
+    .text-column {
+        flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+        padding: 20px;
+    }
+    
+    .text-column h2 {
+        font-size: 2rem; /* Tamaño del título */
+        margin-bottom: 10px; /* Espaciado inferior del título */
+        color: #0c7f83; /* Color del texto */
+    }
+    .text-column h3 {
+        font-size: 1.5rem; /* Tamaño del título */
+        margin-bottom: 20px; /* Espaciado inferior del título */
+        color: #0c7f83; /* Color del texto */
+        text-align: left;
+    }
+    .text-column p {
+        font-size: 1.2rem; /* Tamaño del texto */
+        line-height: 1.6; /* Altura de línea para legibilidad */
+        color: #333; /* Color del texto */
+        text-align: justify;
+    }
+    
+    /* Responsivo para pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .two-columns {
+            flex-direction: column; /* Las columnas se apilan verticalmente */
+        }
+    
+        .image-column, .text-column {
+            flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+            padding: 10px;
+        }
+    }
+    </style>
+        <div class="column image-column">
+            <div class="image-container">
+                <img src="Imagenes/respiración.webp" alt="Nuevas Prácticas de Enseñanza" />
+                <figcaption style="color: black;">Imagen creada con ayuda de IA</figcaption>
+            </div>
+        </div>
+        <div class="column text-column">
+            <h3>⭐ Ejercicios de respiración</h3>
+            <p>
+                Enfocarse en la respiración puede ayudar a las personas a disminuir su ritmo cardíaco, reduciendo la ansiedad y permitiéndoles recuperar el control de sus emociones. Un ejercicio efectivo es la "respiración abdominal profunda". Invítalos a inhalar profundamente por la nariz, manteniendo el aire en el abdomen durante unos segundos, y luego exhalar lentamente por la boca.
+                Puedes utilizar globos o espantasuegras como herramientas de apoyo para hacer el ejercicio más entretenido. Practica estos ejercicios regularmente antes y después de las actividades, y enséñales que pueden utilizarlos cuando se sientan estresados o ansiosos.
+            </p>
+        </div>
+    </section>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sección de Dos Columnas</title>
+        <style>
+            /* Estilos para la sección de dos columnas */
+            .two-columns {
+                display: flex;
+                flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+                margin: 0px 0; /* Espaciado superior e inferior */
+                padding: 20px;
+                background-color: #f5f5f5; /* Color de fondo suave */
+            }
+            
+            /* Columna de la imagen */
+            .image-column {
+                flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+                padding: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: smaller;
+            }
+            
+            .image-container {
+                max-width: 70%; /* Ancho máximo de la imagen */
+                text-align: center;
+            }
+            
+            .image-container img {
+                max-width: 100%; /* La imagen se adapta al contenedor */
+                height: auto;
+                border-radius: 8px; /* Bordes redondeados */
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+            }
+            
+            /* Columna de texto */
+            .text-column {
+                flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+                padding: 20px;
+            }
+            
+            .text-column h2 {
+                font-size: 2rem; /* Tamaño del título */
+                margin-bottom: 10px; /* Espaciado inferior del título */
+                color: #0c7f83; /* Color del texto */
+            }
+            .text-column h3 {
+                font-size: 1.5rem; /* Tamaño del título */
+                margin-bottom: 0px; /* Espaciado inferior del título */
+                color: #0c7f83; /* Color del texto */
+            }
+            .text-column p {
+                font-size: 1.2rem; /* Tamaño del texto */
+                line-height: 1.6; /* Altura de línea para legibilidad */
+                color: #333; /* Color del texto */
+                text-align: justify;
+            }
+            
+            /* Responsivo para pantallas más pequeñas */
+            @media (max-width: 768px) {
+                .two-columns {
+                    flex-direction: column; /* Las columnas se apilan verticalmente */
+                }
+            
+                .image-column, .text-column {
+                    flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+                    padding: 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Sección de dos columnas -->
+        <section class="two-columns">
+            <!-- Columna de texto -->
+            <div class="text-column">
+                <h3>⭐ Yoga</h3> 
+                <p>
+                    El yoga ayuda a fortalecer la conexión entre la mente y el cuerpo, permitiendo que las personas se concentren y estabilicen sus emociones. Mediante la meditación y el movimiento, el yoga mejora el equilibrio y refuerza la confianza en sí mismos.
+                    Practiquen juntos en un espacio tranquilo, respirando profundamente y realizando posturas sencillas de yoga. Esto no solo mejorará su bienestar emocional, sino que también fomentará la tranquilidad y la seguridad.
+                  </p>
+            </div>
+            
+            <!-- Segunda Columna: Galería de Video -->
+        <div class="gallery-column">
+            <div class="video-gallery">
+                <div class="video-container">
+                    <!-- Video de YouTube incrustado -->
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/C_Mi1-ntGHc?si=hWjX33Vbhp9ndeRE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    </html>
+    <section class="two-columns">
+        <style>
+            /* Estilos para la sección de dos columnas */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap; /* Para ajustar en pantallas pequeñas */
+            margin: 0px 0; /* Espaciado superior e inferior */
+            padding: 20px;
+            background-color: #f5f5f5; /* Color de fondo suave */
+        }
+        
+        /* Columna de la imagen */
+        .image-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: smaller;
+        }
+        
+        .image-container {
+            max-width: 70%; /* Ancho máximo de la imagen */
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%; /* La imagen se adapta al contenedor */
+            height: auto;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+        }
+        
+        /* Columna de texto */
+        .text-column {
+            flex: 1; /* Ocupa el 50% del ancho en pantallas grandes */
+            padding: 20px;
+        }
+        
+        .text-column h2 {
+            font-size: 2rem; /* Tamaño del título */
+            margin-bottom: 10px; /* Espaciado inferior del título */
+            color: #0c7f83; /* Color del texto */
+        }
+        .text-column h3 {
+            font-size: 1.5rem; /* Tamaño del título */
+            margin-bottom: 20px; /* Espaciado inferior del título */
+            color: #0c7f83; /* Color del texto */
+            text-align: left;
+        }
+        .text-column p {
+            font-size: 1.2rem; /* Tamaño del texto */
+            line-height: 1.6; /* Altura de línea para legibilidad */
+            color: #333; /* Color del texto */
+            text-align: justify;
+        }
+        
+        /* Responsivo para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column; /* Las columnas se apilan verticalmente */
+            }
+        
+            .image-column, .text-column {
+                flex: 100%; /* Ambas columnas ocupan el 100% del ancho */
+                padding: 10px;
+            }
+        }
+        </style>
+            <div class="column image-column">
+                <div class="image-container">
+                    <img src="Imagenes/image0-_1_.jpg" alt="Nuevas Prácticas de Enseñanza" />
+                    <figcaption style="color: black;">Imagen creada por Maria Camila Campiño.</figcaption>
+                </div>
+            </div>
+            <div class="column text-column">
+                <h3>🌸 Aromaterapia para personas con Autismo</h3>
+                <p> Los aromas pueden tener un efecto positivo en el estado emocional de las personas con autismo, ayudando a inducir un estado de calma de manera natural. Los olores suaves pueden ser una herramienta no invasiva para aliviar situaciones de estrés o crisis. <br>Introduce fragancias suaves, como lavanda, manzanilla, jazmín o eucalipto, que pueden ayudar a tu pequeño a reconocer y elegir sus aromas favoritos. Esto no solo fomenta la tranquilidad, sino que también les permite desarrollar una conexión con los olores que les resultan más relajantes.</br>
+                </p>
+            </div>
+        </section>
+        <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Sistemas Aumentativos y Alternativos de Comunicación (SAAC)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #2d7dd2;
+        }
+        .infographic {
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Cómo crear un entorno de estudio adecuado?</h1>
+        <img class="infographic" src="Imagenes/Cómo crear un entorno de estudio adecuado.png" alt="Infografía sobre SAAC">
+    </div>
+</html>
+    <footer>
+        <style>
+            footer {
+                background-color: #3b4b6b;
+                color: white;
+                padding: 20px 20px;
+                box-sizing: border-box;
+                height: 40vh;
+                border-radius: 20px;
+                margin: 10px
+            }
+            
+            .footer-container {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .footer-column {
+                flex: 1;
+                margin: 10px;
+                min-width: 150px;
+            }
+            
+            .footer-column h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .footer-column ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            
+            .footer-column ul li {
+                margin-bottom: 10px;
+            }
+            
+            .footer-column ul li a {
+                color: white;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+            
+            .footer-column ul li a:hover {
+                text-decoration: underline;
+            }
+            
+            .footer-column a {
+                color: white;
+                text-decoration: none;
+            }
+            
+            .footer-column a:hover {
+                text-decoration: underline;
+            }
+        </style>
+        
+            <div class="footer-container">
+                <!-- Primera Columna: Logo -->
+                <div class="footer-column">
+                    <img src="Imagenes/neuro-numero.jpg" alt="" style="height: 150px;">
+                </div>
+                
+                <!-- Segunda Columna: Políticas de Privacidad -->
+                <div class="footer-column">
+                    <h3>Políticas de Privacidad</h3>
+                    <ul>
+                        <li><a href="politica-privacidad.html">Privacidad</a></li>
+                        <li><a href="terminos-servicio.html">Términos de Servicio</a></li>
+                        <li><a href="cookies.html">Política de Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Tercera Columna: Redes Sociales -->
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                    <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                    <a href="https://x.com" target="_blank">X</a>
+                </div>
+                
+                <!-- Cuarta Columna: Juegos de Matemáticas -->
+                <div class="footer-column">
+                    <h3>Juegos de Matemáticas</h3>
+                    <ul>
+                        <li><a href="juego1.html">Juego 1</a></li>
+                        <li><a href="juego2.html">Juego 2</a></li>
+                        <li><a href="juego3.html">Juego 3</a></li>
+                        <li><a href="juego4.html">Juego 4</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quinta Columna: Comunidad -->
+                <div class="footer-column">
+                    <h3>Comunidad</h3>
+                    <ul>
+                        <li><a href="foros.html">Foros</a></li>
+                        <li><a href="grupos-apoyo.html">Grupos de Apoyo</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="mapa-de-sitio.html">Mapa del Sitio</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </body>

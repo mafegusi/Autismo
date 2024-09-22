@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo Educativo - Segunda Página</title>
+  <style>
+    body {
+      background: url("Imagenes/laberinto.webp") no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5em;
+      color: #333;
+    }
+
+    .puzzle-container {
+      margin-top: 50px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .puzzle-piece {
+      width: 250px;
+      height: 250px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .puzzle-piece:hover {
+      transform: scale(1.1);
+    }
+
+    .speech-bubble {
+      position: absolute;
+      top: 0;
+      left: 270px; /* Coloca la burbuja a la derecha de la ficha */
+      background-color: #fff;
+      border: 2px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      display: none;
+      max-width: 300px; /* Limita el ancho de la burbuja */
+      text-align: left;
+    }
+
+    .speech-bubble:after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: -20px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent #fff transparent transparent;
+    }
+
+    .start-btn {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+      display: none;
+    }
+
+    .start-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .back-btn {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-btn" onclick="window.location.href='index.html';">Ir a Inicio</button>
+
+  <h1>Bienvenido a la Plataforma de Aprendizaje</h1>
+
+  <div class="puzzle-container">
+    <img src="Imagenes/rompecabezas.jpg" alt="Ficha de rompecabezas" class="puzzle-piece" id="puzzlePiece">
+    <div class="speech-bubble" id="speechBubble">
+      ¡Hola! Soy Puzzlo y seré tu guía en esta aventura matemática. Juntos descubriremos el maravilloso mundo de los números, los rompecabezas y las soluciones inteligentes.
+    </div>
+  </div>
+
+  <button class="start-btn" id="startBtn">Comenzar</button>
+
+  <script>
+    const puzzlePiece = document.getElementById('puzzlePiece');
+    const speechBubble = document.getElementById('speechBubble');
+    const startBtn = document.getElementById('startBtn');
+
+    // Mostrar el mensaje cuando el usuario pasa el cursor por la ficha
+    puzzlePiece.addEventListener('mouseover', () => {
+      speechBubble.style.display = 'block';
+    });
+
+    puzzlePiece.addEventListener('mouseout', () => {
+      speechBubble.style.display = 'none';
+    });
+
+    // Evento al hacer clic en la ficha
+    puzzlePiece.addEventListener('click', () => {
+      speechBubble.textContent = '¡Bien hecho! Ahora puedes comenzar.';
+      startBtn.style.display = 'inline-block';
+    });
+
+    // Al hacer clic en "Comenzar"
+    startBtn.addEventListener('click', () => {
+      window.location.href = 'nivel-2.html'; // Enlace al siguiente nivel
+    });
+  </script>
+
+</body>
+</html>
